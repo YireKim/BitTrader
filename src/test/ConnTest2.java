@@ -6,29 +6,30 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-public class ConnTest {
+import enums.Props;
+
+public class ConnTest2 {
 
 	public static void main(String[] args) {
 			Connection conn = null;
 			Statement stmt = null;
 			ResultSet rs = null;
-			
 			try {
-				Class.forName("oracle.jdbc.OracleDriver");
+				Class.forName(Props.ORA_DRIVER.getValue());
 				conn = DriverManager.getConnection(
 						"jdbc:oracle:thin:@localhost:59162:xe",
 						"Eli",
 						"2213");
 				
 				stmt = conn.createStatement();
-				rs = stmt.executeQuery("SELECT * FROM employees");
+				rs = stmt.executeQuery("SELECT COUNT(*) FROM EMPLOYEES");
 				
-				String name = "";
+				String sql = "";
 				
 				while(rs.next()){
-					name = rs.getString("employee_name");
+					sql = rs.getString("count(*)");
 				}
-				System.out.println("Member name is === > "+name);
+				System.out.println("EMP : "+sql);
 				
 			} catch(Exception e) {
 				e.printStackTrace();

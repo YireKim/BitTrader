@@ -10,7 +10,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import command.Carrier;
 import command.Receiver;
-import enums.Action;
 
 @WebServlet("/employee.do")
 public class EmployeesController extends HttpServlet {
@@ -18,19 +17,16 @@ public class EmployeesController extends HttpServlet {
 
 	protected void service(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		
-		System.out.println("=-=-=-=-=-=-= [ 1 emp cont] ");
+
+		System.out.println("=-= [ 1 EMP controller] ");
 		
 		Receiver.init(request, response);  // 1 to 5 << was Receiver area
-		System.out.println("=-=-=-=-=-=-= [ 1 emd : "+Receiver.cmd);
-		switch (Action.valueOf(Receiver.cmd.getAction().toUpperCase())) {
-		case MOVE:
-			System.out.println(" LAST 1 MOVE Carrier Forward");
-			Carrier.forward(request, response);
-			break;
 			
-			default:
-				break;
-		}
+	
+		Carrier.forward(request, response);
+		
+		System.out.println(" 1 Emp contr last out WITH \n"
+				+ "[ request : "+request+"\n"
+				+ "[ response : "+response);
 	}
 }

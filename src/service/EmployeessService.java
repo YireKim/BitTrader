@@ -10,15 +10,15 @@ public interface EmployeessService {
 	
 	// READ
 	public List<EmployeesDTO> retrieveListOfEmployees();
-	public List<EmployeesDTO> retrieveOneOfEmployees(String searchWord);
-	public EmployeesDTO retrieveAnEmployee(String searchWord);
+	public List<EmployeesDTO> retrieveOneOfEmployees(String employeeId);
+	public EmployeesDTO retrieveAnEmployee(String employeeId);
 	public int countEmployees();
-	public boolean existEmployee(String searchWord);
+	public boolean existEmployee(EmployeesDTO emp);
 	
 	// UPDATE
 	public void modifyEmployee(EmployeesDTO emp);
 	
 	// DELETE
 	public void removceEmployee(EmployeesDTO emp);
-	
+
 }

@@ -31,7 +31,6 @@ public class HomeController extends HttpServlet {
 				+ "=====employee: " + session.getAttribute("employee"));
 
 		request.getRequestDispatcher("/WEB-INF/view/home/main.jsp").forward(request, response);
-		System.out.println("HC2 =====request.getRequestDispatcher: " + request+"=====now response: " + response);
 	}
 
 }

@@ -27,14 +27,14 @@ public class EmployeesServiceImpl implements EmployeessService {
 	}
 
 	@Override
-	public List<EmployeesDTO> retrieveOneOfEmployees(String searchWord) {
+	public List<EmployeesDTO> retrieveOneOfEmployees(String employeeId) {
 		// TODO Auto-generated method stub
-		return dao.selectOneOfEmployees(searchWord);
+		return dao.selectOneOfEmployees(employeeId);
 	}
 
 	@Override
-	public EmployeesDTO retrieveAnEmployee(String searchWord) {
-		return dao.selectAnEmployee(searchWord);
+	public EmployeesDTO retrieveAnEmployee(String employeeId) {
+		return dao.selectAnEmployee(employeeId);
 	}
 
 	@Override
@@ -43,8 +43,8 @@ public class EmployeesServiceImpl implements EmployeessService {
 	}
 
 	@Override
-	public boolean existEmployee(String searchWord) {
-		return dao.existEmployee(searchWord);
+	public boolean existEmployee(EmployeesDTO emp) {
+		return dao.existEmployee(emp);
 	}
 
 	@Override
@@ -56,6 +56,7 @@ public class EmployeesServiceImpl implements EmployeessService {
 	public void removceEmployee(EmployeesDTO emp) {
 		dao.deleteEmployee(emp);
 	}
+
 
 
 

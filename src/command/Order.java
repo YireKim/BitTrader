@@ -2,7 +2,8 @@ package command;
 
 public interface Order {
 
-	public void execute();
+	public void execute();	
+	
 	
 	
 }

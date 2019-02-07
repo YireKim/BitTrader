@@ -21,12 +21,12 @@
 
 <form id="accessform">
 <div class="access-form">
-  <div>Employee ID</div>
-  <div><input type="text" name="employee_id" id="empid"/></div>
-  <div>Employee NAME</div>  
-  <div><input type="text" name="employee_name" id="empname"/>
+  <div>Customer ID</div>
+  <div><input type="text" name="customer_id" id="custid"/></div>
+  <div>Contact NAME</div>  
+  <div><input type="text" name="contact_name" id="contname"/>
        <input type="hidden" name="cmd" value="exist" />
-       <input type="hidden" name="dir" value="employee" />
+       <input type="hidden" name="dir" value="customer" />
 	   <input type="hidden" name="page" value="main" />
 	   </div>
   	<div id="accessbtn"><input type="submit" value="Access" /></div>
@@ -41,16 +41,16 @@
 
 	$('#accessbtn').click(function(){
 		
-		var empno = $('#empid').val();
-		var empname = $('#empname').val();
+		var custid = $('#custid').val();
+		var contname = $('#contname').val();
 
-	if(empno === ''){
-		alert('Must insert employee no.');		
-	} else if (empname === ''){
-		alert('Must insert employee name');
+	if(custid === ''){
+		alert('Must insert customers id');		
+	} else if (contname === ''){
+		alert('Must insert contacts name');
 	} else {
 		alert('Moving..');
-		$('#accessform').attr('action', '${ctx}/employee.do').submit();
+		$('#accessform').attr('action', '${ctx}/customer.do').submit();
 	}
 	
 });

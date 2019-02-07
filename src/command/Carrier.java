@@ -11,10 +11,10 @@ public class Carrier {
 	public static void forward(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		System.out.println("=-=-=-=-=-=-= [ 6 / Carrier : Exit! -> Dispatcher(Reciver.cmd.getView.forward) ] ");
+		System.out.println("=-=[ 6 Carrier ] ");
 		
-		System.out.println(" 6  getView out :  "+Receiver.cmd.getView());
 		request.getRequestDispatcher(Receiver.cmd.getView()).forward(request, response);
 		
+		System.out.println(" 6  Dispatcher(Reciver.cmd.getView.forward) => "+Receiver.cmd.getView());
 	}
 }

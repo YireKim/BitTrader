@@ -24,30 +24,30 @@
 		
 <form id="content-wide">
 	<div class="grid-item" id="joinform">
-		<div>Employee ID</div>
-		<div>
-			<input type="text" name="empno" id="empno" />
-		</div>
 		<div>Employee NAME</div>
 		<div>
 			<input type="text" name="employeeName" id="empname" />
-		</div>
-		<div>Manager ID</div>
-		<div>
-			<input type="text" name="managerId" id="mngid" />
 		</div>
 		<div>Birth Day</div>
 		<div>
 			<input type="text" name="birthDate" id="bday" />
 		</div>
+		<div>PHOTO</div>
+		<div>
+			<input type="text" name="photo" id="note" />
+		</div>
 		<div>INFO</div>
 		<div>
 			<input type="text" name="noteInfo" id="note" />
 		</div>
+		<div>Manager ID</div>
+		<div>
+			<input type="text" name="managerId" id="mngid" />
+		</div>
 		<div id="joinbtn">
 			<input type="submit" value="NewMember" />
 		</div>
-		<input type="hidden" name="cmd" value="move" />
+		<input type="hidden" name="cmd" value="register" />
 		<input type="hidden" name="page" value="access" />
 		<div id="resetbtn">
 			<input type="reset" value="RESET">

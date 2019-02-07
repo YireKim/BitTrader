@@ -8,8 +8,8 @@
 
     <div class="grid-item" id="content_1">
         Customers only<br /><br />
-        <a href="#" id="cust_join" >Sign up</a><br />
-        <a href="#" id="cust_login" >Login</a>
+        <a href="#" id="cust_register" >Sign up</a><br />
+        <a href="#" id="cust_access" >Login</a>
     </div>
     <div class="grid-item" id="content_2">
         Employees Only<br /><br />
@@ -20,7 +20,16 @@
 <jsp:include page="tail.jsp"/>
 
 	<script>
+	$('#cust_register').click(function(){
+	    location.assign('customer.do?cmd=move&page=register');
+	});
+	$('#cust_access').click(function(){
+	    location.assign('customer.do?cmd=move&page=access');
+	});
 	$('#emp_register').click(function(){
 	    location.assign('employee.do?cmd=move&page=register');
+	});
+	$('#emp_access').click(function(){
+	    location.assign('employee.do?cmd=move&page=access');
 	});
 	</script>

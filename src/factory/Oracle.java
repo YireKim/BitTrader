@@ -3,39 +3,31 @@ package factory;
 import java.sql.Connection;
 import java.sql.DriverManager;
 
-public class Oracle implements Database {
+import enums.Props;
+import lombok.Data;
+@Data
 
-	private Connection conn;
-	private String driver, url, user, password;
-	
-	public Oracle(
-			String driver,
-			String url,
-			String user,
-			String password) {
-		this.driver = driver;
-		this.url = url;
-		this.user = user;
-		this.password = password;
-	}
+public class Oracle implements Database {
 	
 	@Override
 	public Connection getConnection() {
-		conn = null;
+		   Connection conn = null;
+		  
 		try {
-			Class.forName(driver);
+			Class.forName(Props.ORA_DRIVER.getValue());
 			
 			conn = DriverManager.getConnection(
-					url, 
-					user, 
-					password);
+					Props.ORA_URL.getValue(),
+					Props.ORA_USER.getValue(), 
+					Props.ORA_PASS.getValue());
 			
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+		System.out.println(" .. Oracle");
 		return conn;
 	}
 	
+
 }

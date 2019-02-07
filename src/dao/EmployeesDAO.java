@@ -10,10 +10,10 @@ public interface EmployeesDAO {
 	
 	// READ
 	public List<EmployeesDTO> selectListOfEmployees();
-	public List<EmployeesDTO> selectOneOfEmployees(String searchWord);
-	public EmployeesDTO selectAnEmployee(String searchWord);
+	public List<EmployeesDTO> selectOneOfEmployees(String employeeId);
+	public EmployeesDTO selectAnEmployee(String employeeId);
 	public int countEmployees();
-	public boolean existEmployee(String searchWord);
+	public boolean existEmployee(EmployeesDTO emp);
 	
 	// UPDATE
 	public void updateEmployee(EmployeesDTO emp);
