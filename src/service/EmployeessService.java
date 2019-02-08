@@ -10,8 +10,8 @@ public interface EmployeessService {
 	
 	// READ
 	public List<EmployeesDTO> retrieveListOfEmployees();
-	public List<EmployeesDTO> retrieveOneOfEmployees(String employeeId);
-	public EmployeesDTO retrieveAnEmployee(String employeeId);
+	public List<EmployeesDTO> retrieveOneOfEmployees(EmployeesDTO emp);
+	public EmployeesDTO retrieveAnEmployee(EmployeesDTO emp);
 	public int countEmployees();
 	public boolean existEmployee(EmployeesDTO emp);
 	

@@ -28,14 +28,14 @@ public class CustomersServiceImpl implements CustomersService {
 	}
 
 	@Override
-	public List<CustomersDTO> retrieveOneOfCustomers(String searchWord) {
+	public List<CustomersDTO> retrieveOneOfCustomers(CustomersDTO cust) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public CustomersDTO retrieveAnCustomer(String searchWord) {
-		// TODO Auto-generated method stub
+	public CustomersDTO retrieveAnCustomer(CustomersDTO cust) {
+		dao.selectAnCustomer(cust);
 		return null;
 	}
 
@@ -47,7 +47,7 @@ public class CustomersServiceImpl implements CustomersService {
 
 	@Override
 	public boolean existCustomer(CustomersDTO cust) {
-		dao.existCustomer(cust);
+		dao.existCustomerId(cust);
 		return false;
 	}
 

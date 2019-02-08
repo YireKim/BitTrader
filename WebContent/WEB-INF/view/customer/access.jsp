@@ -25,7 +25,7 @@
   <div><input type="text" name="customer_id" id="custid"/></div>
   <div>Contact NAME</div>  
   <div><input type="text" name="contact_name" id="contname"/>
-       <input type="hidden" name="cmd" value="exist" />
+       <input type="hidden" name="cmd" value="signin" />
        <input type="hidden" name="dir" value="customer" />
 	   <input type="hidden" name="page" value="main" />
 	   </div>

@@ -25,11 +25,11 @@
   <div><input type="text" name="employee_id" id="empid"/></div>
   <div>Employee NAME</div>  
   <div><input type="text" name="employee_name" id="empname"/>
-       <input type="hidden" name="cmd" value="exist" />
+       <input type="hidden" name="cmd" value="access" />
        <input type="hidden" name="dir" value="employee" />
 	   <input type="hidden" name="page" value="main" />
 	   </div>
-  	<div id="accessbtn"><input type="submit" value="Access" /></div>
+  	<div id="accessbtn"><input type="submit" value="access" /></div>
 
 </div>
 </form>

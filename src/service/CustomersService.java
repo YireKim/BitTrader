@@ -10,8 +10,8 @@ public interface CustomersService {
 	
 	// READ
 	public List<CustomersDTO> retrieveListOfCustomers();
-	public List<CustomersDTO> retrieveOneOfCustomers(String customerid);
-	public CustomersDTO retrieveAnCustomer(String customerid);
+	public List<CustomersDTO> retrieveOneOfCustomers(CustomersDTO cust);
+	public CustomersDTO retrieveAnCustomer(CustomersDTO cust);
 	public int countEmpCustomer();
 	public boolean existCustomer(CustomersDTO cust);
 	

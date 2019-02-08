@@ -4,58 +4,53 @@
 	
 <jsp:include page="../home/head.jsp" />
 
-<link rel="stylesheet" href="${css}/employee/register.css" />
+<div class="row">
+	<div class="col-md-10"> <jsp:include page="../employee/post-navi-bar.jsp" /> </div>
+	<div class="col-md-2"> 	<jsp:include page="../home/memberhv.jsp" /> </div>
+</div>
 
-		<div class="grid-item" id="navi-bar">
-			<c:choose>
-				<c:when test="${dest eq 'login'}">
-					<jsp:include page="../employee/post-navi-bar.jsp" />
-				</c:when>
+<div class="row">
+	<div class="col-md-2"></div>
 
-				<c:otherwise>
-					<jsp:include page="../employee/pre-navi-bar.jsp" />
-				</c:otherwise>
-			</c:choose>
-		</div>
-
-		<div class="grid-item" id="memberhv">
-			<jsp:include page="../home/memberhv.jsp" />
-		</div>
-		
-<form id="content-wide">
+	<div class="col-md-8 input-group"> 
+	<form id="content-wide">
 	<div class="grid-item" id="joinform">
-		<div>Contact Name</div>
-		<div>
-			<input type="text" name="cust_contact_name" id="contname" />
-		</div>
-		<div>Address</div>
-		<div>
-			<input type="text" name="cust_address" id="add" />
-		</div>
-		<div>City</div>
-		<div>
-			<input type="text" name="cust_city" id="city" />
-		</div>
-		<div>Postal code</div>
-		<div>
-			<input type="text" name="cust_postalcode" id="postalcode" />
-		</div>
-		<div>Country</div>
-		<div>
-			<input type="text" name="cust_country" id="country" />
-		</div>
-		<div id="joinbtn">
-			<input type="submit" value="NewCustomer" />
-		</div>
-		<input type="hidden" name="cmd" value="register" />
-		<input type="hidden" name="page" value="access" />
-		<div id="resetbtn">
-			<input type="reset" value="RESET">
-		</div>
+		<span class="input-group-addon" id="basic-addon1">NAME</span>
+  		<input type="text" class="form-control" name="cust_contact_name" id="contname" placeholder="Contact Name" aria-describedby="basic-addon1">
+  		
+		<span class="input-group-addon" id="basic-addon2">ADD</span>
+  		<input type="text" class="form-control" name="cust_address" id="address" placeholder="Address" aria-describedby="basic-addon2">
+  		
+		<span class="input-group-addon" id="basic-addon3">CITY</span>
+  		<input type="text" class="form-control" name="cust_city" id="city" placeholder="City" aria-describedby="basic-addon3">
+  		
+		<span class="input-group-addon" id="basic-addon4">POSTAL CODE</span>
+  		<input type="text" class="form-control" name="cust_postalcode" id="code" placeholder="Postal code" aria-describedby="basic-addon4">
+  		
+		<span class="input-group-addon" id="basic-addon5">COUNTRY</span>
+  		<input type="text" class="form-control" name="cust_country" id="country" placeholder="Country" aria-describedby="basic-addon5">
+  
+  		<div class="col-md-6"> 
+  			<span class="input-group-btn">
+        	<button class="btn btn-default" id="joinbtn" type="submit">JOIN</button></span>	
+        	<input type="hidden" name="cmd" value="SIGNUP" />
+        	<input type="hidden" name="dir" value="category" />
+			<input type="hidden" name="page" value="main" />       	
+      	</div>	
+      	<div class="col-md-6"> 
+      		<span class="input-group-btn">
+        	<input class="btn btn-default" id="restbtn" type="reset" value="RESET">RESET</span>	
+      	</div>   	
 	</div>
 </form>
 
+	</div>
+
+		<div class="col-md-2"></div>
+</div>
+
 <jsp:include page="../home/tail.jsp" />
+
 <script>
 	$('#joinbtn').click(function() {
 

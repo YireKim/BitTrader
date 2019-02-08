@@ -1,13 +1,12 @@
 package dao;
 
-import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
 import domain.CustomersDTO;
-import enums.EmployeeSQL;
+import enums.CustomerSQL;
 import enums.Vendor;
 import factory.DatabaseFactory;
 
@@ -24,27 +23,17 @@ public class CustomersDAOImpl implements CustomersDAO{
 	@Override
 	public void insertCustomer(CustomersDTO cust) {
 		try {
-		String sql = String.format(EmployeeSQL.CUST_REGISTER.toString(),
-				cust.getContactName(),
-				cust.getAddress(),
-				cust.getCity(),
-				cust.getPostalCode(),
-				cust.getCountry());	
-		
-		Connection conn = DatabaseFactory
+		PreparedStatement ps = DatabaseFactory
 				.createDatabase(Vendor.ORACLE)
-				.getConnection();
+				.getConnection().prepareStatement(CustomerSQL.SIGNUP.toString());
 		
-		PreparedStatement prmt = conn.prepareStatement(sql);
-		prmt.setString(1, cust.getContactName());
-		prmt.setString(2, cust.getAddress());
-		prmt.setString(3, cust.getCity());
-		prmt.setString(4, cust.getPostalCode());
-		prmt.setString(5, cust.getCountry());
+		ps.setString(1, cust.getContactName());
+		ps.setString(2, cust.getAddress());
+		ps.setString(3, cust.getCity());
+		ps.setString(4, cust.getPostalCode());
+		ps.setString(5, cust.getCountry());
 		
-		int rs = prmt.executeUpdate();
-		
-		System.out.println((rs == 1) ? "CUST * INSERTED":"INSERT FAIL");
+		ps.executeQuery();
 		
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -58,14 +47,40 @@ public class CustomersDAOImpl implements CustomersDAO{
 	}
 
 	@Override
-	public List<CustomersDAO> selectOneOfCustomers(String searchWord) {
+	public List<CustomersDAO> selectOneOfCustomers(CustomersDTO cust) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public CustomersDAO selectAnCustomer(String searchWord) {
-		return null;
+	public CustomersDTO selectAnCustomer(CustomersDTO cust) {
+		CustomersDTO temp = null;
+
+		try {
+			PreparedStatement ps = DatabaseFactory
+					.createDatabase(Vendor.ORACLE)
+					.getConnection()
+					.prepareStatement(CustomerSQL.SIGNIN.toString());
+
+			ps.setString(1, cust.getCustomerId());
+			ps.setString(2, cust.getContactName());
+
+			ResultSet rs = ps.executeQuery();
+
+			while (rs.next()) {
+				temp = new CustomersDTO();
+				temp.setCustomerId(rs.getString("CUSTOMER_ID"));
+				temp.setContactName(rs.getString("CONTACT_NAME"));
+				temp.setAddress(rs.getString("ADDRESS"));
+				temp.setCity(rs.getString("CITY"));
+				temp.setPostalCode(rs.getString("POSTAL_CODE"));
+				temp.setCountry(rs.getString("COUNTRY"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return temp;
 	}
 
 	@Override
@@ -74,13 +89,13 @@ public class CustomersDAOImpl implements CustomersDAO{
 	}
 
 	@Override
-	public boolean existCustomer(CustomersDTO cust) {
+	public boolean existCustomerId(CustomersDTO cust) {
 		boolean exist = false;
 		try {
 			PreparedStatement ps = DatabaseFactory
 			.createDatabase(Vendor.ORACLE)
 			.getConnection()
-			.prepareStatement(EmployeeSQL.CUST_EXIST.toString());
+			.prepareStatement(CustomerSQL.SIGNIN.toString());
 			
 			ps.setString(1, cust.getCustomerId());
 			ps.setString(2, cust.getContactName());

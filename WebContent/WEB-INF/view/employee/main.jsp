@@ -4,20 +4,15 @@
 
 <jsp:include page="../home/head.jsp" />
 
-<div class="grid-item" id="navi-bar">
-	<jsp:include page="pre-navi-bar.jsp" />
+<div class="row">
+	<div class="col-md-10"><jsp:include page="post-navi-bar.jsp" /></div>
+	<div class="col-md-2"><jsp:include page="../home/memberhv.jsp" /></div>
 </div>
 
-<div class="grid-item" id="memberhv">
-	<jsp:include page="../home/memberhv.jsp" />
-</div>
-
-<div class="grid-item" id="side-menu">
-	<jsp:include page="side-menu.jsp" />
-</div>
-
-<div class="grid-item" id="content">
-	<jsp:include page="content.jsp" />
+<div class="row">
+	<div class="col-md-2"></div>
+	<div class="col-md-8"><jsp:include page="content.jsp" /></div>
+	<div class="col-md-2"></div>
 </div>
 
 <jsp:include page="../home/tail.jsp" />

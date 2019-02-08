@@ -1,6 +1,5 @@
 package dao;
 
-import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -23,29 +22,17 @@ public class EmployeesDAOImpl implements EmployeesDAO{
 	@Override
 	public void insertEmployee(EmployeesDTO emp) {
 		try {
-			String sql = String.format(EmployeeSQL.EMP_REGISTER.toString(),
-					emp.getName(),
-					emp.getBirthDate(),
-					emp.getPhoto(),
-					emp.getNoteInfo(),
-					emp.getManagerId());
-			
-			System.out.println("RUN QUERY : "+sql);
-			
-			Connection conn = DatabaseFactory
+			PreparedStatement ps = DatabaseFactory
 					.createDatabase(Vendor.ORACLE)
-					.getConnection();
+					.getConnection()
+					.prepareStatement(EmployeeSQL.REGISTER.toString());
 			
-			PreparedStatement prmt = conn.prepareStatement(sql);
-			prmt.setString(1, emp.getName());
-			prmt.setString(2, emp.getBirthDate());
-			prmt.setString(3, emp.getPhoto());
-			prmt.setString(4, emp.getNoteInfo());
-			prmt.setString(5, emp.getManagerId());
-			
-			int rs = prmt.executeUpdate();
-			
-			System.out.println((rs == 1) ? "EMP * INSERTED":"INSERT FAIL");
+			ps.setString(1, emp.getName());
+			ps.setString(2, emp.getBirthDate());
+			ps.setString(3, emp.getPhoto());
+			ps.setString(4, emp.getNoteInfo());
+			ps.setString(5, emp.getManagerId());
+			ps.executeUpdate();
 			
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
@@ -82,7 +69,7 @@ public class EmployeesDAOImpl implements EmployeesDAO{
 	}
 
 	@Override
-	public List<EmployeesDTO> selectOneOfEmployees(String employeeId) {
+	public List<EmployeesDTO> selectOneOfEmployees(EmployeesDTO emp) {
 		List<EmployeesDTO> list = new ArrayList<>();
 		
 		String sql = "";
@@ -108,29 +95,36 @@ public class EmployeesDAOImpl implements EmployeesDAO{
 	}
 
 	@Override
-	public EmployeesDTO selectAnEmployee(String employeeId) {
-		EmployeesDTO emp = new EmployeesDTO();
-		
-		String sql = "";
+	public EmployeesDTO selectAnEmployee(EmployeesDTO emp) {
+		EmployeesDTO temp = null;
+
 		try {
 			PreparedStatement ps = DatabaseFactory
-			.createDatabase(Vendor.ORACLE)
-			.getConnection()
-			.prepareStatement(sql);
-			
-			ps.setString(1, "");
+					.createDatabase(Vendor.ORACLE)
+					.getConnection()
+					.prepareStatement(EmployeeSQL.ACCESS.toString());
+
+			ps.setString(1, emp.getEmployeeId());
+			ps.setString(2, emp.getName());
+
 			ResultSet rs = ps.executeQuery();
-			
-			while(rs.next()) {
-				
+
+			while (rs.next()) {
+				temp = new EmployeesDTO();
+				temp.setEmployeeId(rs.getString("EMPLOYEE_ID"));
+				temp.setName(rs.getString("EMPLOYEE_NAME"));
+				temp.setBirthDate(rs.getString("BIRTHDATE"));
+				temp.setPhoto(rs.getString("PHOTO"));
+				temp.setNoteInfo(rs.getString("NOTE_INFO"));
+				temp.setManagerId(rs.getString("MANAGER_ID"));
 			}
-			
+
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
-		return emp;
+		return temp;
 	}
 
 	@Override
@@ -159,24 +153,33 @@ public class EmployeesDAOImpl implements EmployeesDAO{
 	@Override
 	public boolean existEmployee(EmployeesDTO emp) {
 		boolean exist = false;
+		
+		
 		try {
-			PreparedStatement ps = DatabaseFactory
+			String sql = String.format(EmployeeSQL.ACCESS.toString(),
+					emp.getEmployeeId(),
+					emp.getName());
+			
+			PreparedStatement ps; 
+		
+			ps = DatabaseFactory
 			.createDatabase(Vendor.ORACLE)
 			.getConnection()
-			.prepareStatement(EmployeeSQL.EMP_EXIST.toString());
+			.prepareStatement(sql);
 			
-			ps.setString(1, emp.getEmployeeId());
-			ps.setString(2, emp.getName());
-			
+			ps.setString(1, "");
 			ResultSet rs = ps.executeQuery();
-			if(rs.next()) {
-				exist = true;
-				}
+			
+			while(rs.next()) {
+				
+			}
 			
 		} catch (SQLException e) {
-			
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
+		
 		
 		return exist;
 	}
@@ -206,25 +209,26 @@ public class EmployeesDAOImpl implements EmployeesDAO{
 
 	@Override
 	public void deleteEmployee(EmployeesDTO emp) {
-		String sql = "";
-		PreparedStatement ps;
-		ResultSet rs;
+	
+		
 		try {
-			ps = DatabaseFactory
-					.createDatabase(Vendor.ORACLE)
-					.getConnection()
-					.prepareStatement(sql);
+			String sql = "";
 
-			rs = ps.executeQuery();
+			PreparedStatement ps = DatabaseFactory
+			.createDatabase(Vendor.ORACLE)
+			.getConnection()
+			.prepareStatement(sql);
 			
-			while(rs.next()) {
-				
-			}
+			ps.setString(1, "");
+			ps.executeQuery();
+			
+			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-	
+		
+		
 	}
 
 }

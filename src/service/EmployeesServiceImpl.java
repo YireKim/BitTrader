@@ -27,14 +27,14 @@ public class EmployeesServiceImpl implements EmployeessService {
 	}
 
 	@Override
-	public List<EmployeesDTO> retrieveOneOfEmployees(String employeeId) {
+	public List<EmployeesDTO> retrieveOneOfEmployees(EmployeesDTO emp) {
 		// TODO Auto-generated method stub
-		return dao.selectOneOfEmployees(employeeId);
+		return dao.selectOneOfEmployees(emp);
 	}
 
 	@Override
-	public EmployeesDTO retrieveAnEmployee(String employeeId) {
-		return dao.selectAnEmployee(employeeId);
+	public EmployeesDTO retrieveAnEmployee(EmployeesDTO emp) {
+		return dao.selectAnEmployee(emp);
 	}
 
 	@Override

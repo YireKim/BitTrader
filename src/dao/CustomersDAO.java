@@ -11,10 +11,10 @@ public interface CustomersDAO {
 	
 	// READ
 	public List<CustomersDAO> selectListOfCustomers();
-	public List<CustomersDAO> selectOneOfCustomers(String searchWord);
-	public CustomersDAO selectAnCustomer(String searchWord);
+	public List<CustomersDAO> selectOneOfCustomers(CustomersDTO cust);
+	public CustomersDTO selectAnCustomer(CustomersDTO cust);
 	public int countCustomers();
-	public boolean existCustomer(CustomersDTO cust);
+	public boolean existCustomerId(CustomersDTO cust);
 	
 	// UPDATE
 	public void updateCustomer(CustomersDTO cust);

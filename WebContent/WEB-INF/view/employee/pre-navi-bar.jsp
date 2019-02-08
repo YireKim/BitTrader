@@ -2,10 +2,10 @@
     pageEncoding="UTF-8"%>
     
 
-    <ul id="pre_navi_bar">
-        <li class="active"><a href="employee.do">HOME</a></li>
-        <li><a href="#">Member Sign up</a></li>
-        <li><a href="#">Member Login</a></li>
-        <li><a href="#">Admin Sign up</a></li>
-        <li><a href="#">Admin login</a></li>
-    </ul>
+    <div id="pre_navi_bar">
+        <div class="active"><a href="employee.do">HOME</a></div>
+        <a href="#">Member Sign up</a>
+        <a href="#">Member Login</a>
+        <a href="#">Admin Sign up</a>
+        <a href="#">Admin login</a>
+   </div>

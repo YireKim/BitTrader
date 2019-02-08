@@ -5,6 +5,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import domain.CustomersDTO;
 import domain.EmployeesDTO;
+import enums.Action;
 import service.CustomersServiceImpl;
 import service.EmployeesServiceImpl;
 
@@ -14,10 +15,8 @@ public class CreateCommand extends Command{
 
 		super(request, response);
 		
-		System.out.println("getDomain ====== "+getDomain());
-		
-		switch (getDomain()) {
-		case "employee":
+		switch(Action.valueOf(request.getParameter("cmd").toUpperCase())) {
+		case REGISTER:
 			System.out.println("=-= [ 4-2 Create comm EMP ] ");
 			
 			EmployeesDTO emp = new EmployeesDTO();
@@ -30,7 +29,7 @@ public class CreateCommand extends Command{
 			EmployeesServiceImpl.getInstance().addEmployee(emp);
 			break;
 
-		case "customer":
+		case SIGNUP:
 			System.out.println("=-= [ 4-2 Create comm CUST ] ");
 			
 			CustomersDTO cust = new CustomersDTO();
@@ -46,6 +45,5 @@ public class CreateCommand extends Command{
 			break;
 		}
 		
-		super.execute();
 	}
 }
