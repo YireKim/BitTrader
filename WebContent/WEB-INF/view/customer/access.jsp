@@ -26,10 +26,10 @@
   <div>Contact NAME</div>  
   <div><input type="text" name="contact_name" id="contname"/>
        <input type="hidden" name="cmd" value="signin" />
-       <input type="hidden" name="dir" value="customer" />
+       <input type="hidden" name="dir" value="category" />
 	   <input type="hidden" name="page" value="main" />
 	   </div>
-  	<div id="accessbtn"><input type="submit" value="Access" /></div>
+  	<div id="accessbtn"><input type="submit" value="access" /></div>
 
 </div>
 </form>

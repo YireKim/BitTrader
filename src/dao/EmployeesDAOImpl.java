@@ -118,9 +118,7 @@ public class EmployeesDAOImpl implements EmployeesDAO{
 				temp.setNoteInfo(rs.getString("NOTE_INFO"));
 				temp.setManagerId(rs.getString("MANAGER_ID"));
 			}
-
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		

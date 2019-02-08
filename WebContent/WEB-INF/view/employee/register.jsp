@@ -5,11 +5,6 @@
 <jsp:include page="../home/head.jsp" />
 
 <div class="row">
-	<div class="col-md-10"> <jsp:include page="post-navi-bar.jsp" /> </div>
-	<div class="col-md-2"> 	<jsp:include page="../home/memberhv.jsp" /> </div>
-</div>
-
-<div class="row">
 	<div class="col-md-2"></div>
 
 	<div class="col-md-8 input-group"> 
@@ -34,6 +29,7 @@
   			<span class="input-group-btn">
         	<button class="btn btn-default" id="joinbtn" type="submit">JOIN</button></span>	
         	<input type="hidden" name="cmd" value="register" />
+        	<input type="hidden" name="dir" value="employee" />
 			<input type="hidden" name="page" value="access" />       	
       	</div>	
       	<div class="col-md-6"> 

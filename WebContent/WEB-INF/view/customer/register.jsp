@@ -34,8 +34,8 @@
   			<span class="input-group-btn">
         	<button class="btn btn-default" id="joinbtn" type="submit">JOIN</button></span>	
         	<input type="hidden" name="cmd" value="SIGNUP" />
-        	<input type="hidden" name="dir" value="category" />
-			<input type="hidden" name="page" value="main" />       	
+        	<input type="hidden" name="dir" value="customer" />
+			<input type="hidden" name="page" value=access />       	
       	</div>	
       	<div class="col-md-6"> 
       		<span class="input-group-btn">

@@ -20,7 +20,7 @@ public enum CustomerSQL {
 			break;
 			
 		case SIGNIN:
-			query.append("SELECT CUSTOMER_ID,CONTACT_NAME FROM CUSTOMERS WHERE CUSTOMER_ID LIKE ? AND CONTACT_NAME LIKE ?");
+			query.append("SELECT * FROM CUSTOMERS WHERE CUSTOMER_ID LIKE ? AND CONTACT_NAME LIKE ?");
 			break;
 			
 		default:

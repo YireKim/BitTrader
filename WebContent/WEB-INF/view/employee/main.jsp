@@ -5,11 +5,6 @@
 <jsp:include page="../home/head.jsp" />
 
 <div class="row">
-	<div class="col-md-10"><jsp:include page="post-navi-bar.jsp" /></div>
-	<div class="col-md-2"><jsp:include page="../home/memberhv.jsp" /></div>
-</div>
-
-<div class="row">
 	<div class="col-md-2"></div>
 	<div class="col-md-8"><jsp:include page="content.jsp" /></div>
 	<div class="col-md-2"></div>

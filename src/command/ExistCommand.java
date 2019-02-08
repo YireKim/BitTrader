@@ -28,10 +28,10 @@ public class ExistCommand extends Command{
 			emp = EmployeesServiceImpl.getInstance().retrieveAnEmployee(emp);
 			
 			if(emp != null) {
-				System.out.println("ExistComm - EMP boolean TURE");
+				System.out.println("ExistComm - EMP TURE");
 				session.setAttribute("employee", emp);
 			} else {
-				System.out.println("ExistComm - EMP boolean FALSE");
+				System.out.println("ExistComm - EMP FALSE");
 				super.setDomain("employee");
 				super.setPage("access");
 				super.execute();
@@ -47,10 +47,10 @@ public class ExistCommand extends Command{
 			cust = CustomersServiceImpl.getInstance().retrieveAnCustomer(cust);
 			
 				if(cust != null) {
-					System.out.println("ExistComm - CUST boolean TURE");
+					System.out.println("ExistComm - CUST TURE");
 					session.setAttribute("customer", cust);
 				} else {
-					System.out.println("ExistComm - CUST boolean FALSE");
+					System.out.println("ExistComm - CUST FALSE");
 					super.setDomain("customer");
 					super.setPage("access");
 					super.execute();

@@ -4,18 +4,18 @@
 
 <jsp:include page="head.jsp" />
 
-<link rel="stylesheet" href="${css}/home/main.css" />
-
-    <div class="grid-item" id="content_1">
-        Customers only<br /><br />
+<div class="row">
+	<div class="col-md-4"></div>  
+	<div class="col-md-2">  
+	Customers only<br /><br />
         <a href="#" id="cust_register" >Sign up</a><br />
-        <a href="#" id="cust_access" >Login</a>
-    </div>
-    <div class="grid-item" id="content_2">
-        Employees Only<br /><br />
+        <a href="#" id="cust_access" >Login</a> </div>
+	<div class="col-md-2">  
+	Employees Only<br /><br />
         <a href="#" id="emp_register" >Sign up</a><br />
-        <a href="#" id="emp_access">Login</a>
-    </div>
+        <a href="#" id="emp_access">Login</a> </div>
+    <div class="col-md-4"></div>  
+</div>
 	
 <jsp:include page="tail.jsp"/>
 

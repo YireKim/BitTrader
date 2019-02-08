@@ -30,7 +30,6 @@ public class Commander {
 				break;
 				
 		}
-		System.out.println("  3 Commander CMD : "+Action.valueOf(request.getParameter("cmd").toUpperCase()));
 		return cmd;
 	}
 }
