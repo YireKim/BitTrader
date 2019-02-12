@@ -2,6 +2,7 @@ package service;
 
 import java.util.List;
 import domain.CustomersDTO;
+import proxy.Pagination;
 
 public interface CustomersService {
 
@@ -9,7 +10,7 @@ public interface CustomersService {
 	public void addCustomer(CustomersDTO cust);
 	
 	// READ
-	public List<CustomersDTO> retrieveListOfCustomers();
+	public List<CustomersDTO> retrieveListOfCustomers(Pagination page);
 	public List<CustomersDTO> retrieveOneOfCustomers(CustomersDTO cust);
 	public CustomersDTO retrieveAnCustomer(CustomersDTO cust);
 	public int countEmpCustomer();

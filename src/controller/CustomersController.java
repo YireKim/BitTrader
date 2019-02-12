@@ -20,7 +20,6 @@ public class CustomersController extends HttpServlet {
 		
 		Receiver.init(request, response);  // 1 to 5 << was Receiver area
 		
-		
 		Carrier.forward(request, response);
 	}
 }

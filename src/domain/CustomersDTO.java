@@ -4,6 +4,5 @@ import lombok.Data;
 
 public @Data class CustomersDTO {
 	
-	private String customerId, contactName, address, city, postalCode, country ;
-
+	private String no, customerId, contactName, address, city, postalCode, country, ssn, phone, password, photo;
 }

@@ -3,6 +3,7 @@ package dao;
 import java.util.List;
 
 import domain.CustomersDTO;
+import proxy.Pagination;
 
 public interface CustomersDAO {
 
@@ -10,8 +11,8 @@ public interface CustomersDAO {
 	public void insertCustomer(CustomersDTO cust);
 	
 	// READ
-	public List<CustomersDAO> selectListOfCustomers();
-	public List<CustomersDAO> selectOneOfCustomers(CustomersDTO cust);
+	public List<CustomersDTO> selectListOfCustomers(Pagination page);
+	public List<CustomersDTO> selectOneOfCustomers(CustomersDTO cust);
 	public CustomersDTO selectAnCustomer(CustomersDTO cust);
 	public int countCustomers();
 	public boolean existCustomerId(CustomersDTO cust);
@@ -21,5 +22,7 @@ public interface CustomersDAO {
 	
 	// DELETE
 	public void deleteCustomer(CustomersDTO cust);
+
+
 	
 }

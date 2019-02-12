@@ -26,8 +26,8 @@
   <div>Employee NAME</div>  
   <div><input type="text" name="employee_name" id="empname"/>
        <input type="hidden" name="cmd" value="access" />
-       <input type="hidden" name="dir" value="category" />
-	   <input type="hidden" name="page" value="main" />
+       <input type="hidden" name="dir" value="customer" />
+	   <input type="hidden" name="page" value="list" />
 	   </div>
   	<div id="accessbtn"><input type="submit" value="access" /></div>
 
@@ -50,7 +50,10 @@
 		alert('Must insert employee name');
 	} else {
 		alert('Moving..');
-		$('#accessform').attr('action', '${ctx}/employee.do').submit();
+		$('#accessform')
+		.attr('page2', '${ctx}/employee.do')
+		.submit();
+		
 	}
 	
 });

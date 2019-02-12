@@ -23,8 +23,8 @@
 <div class="access-form">
   <div>Customer ID</div>
   <div><input type="text" name="customer_id" id="custid"/></div>
-  <div>Contact NAME</div>  
-  <div><input type="text" name="contact_name" id="contname"/>
+  <div>Customer Password</div>  
+  <div><input type="text" name="customer_password" id="contname"/>
        <input type="hidden" name="cmd" value="signin" />
        <input type="hidden" name="dir" value="category" />
 	   <input type="hidden" name="page" value="main" />

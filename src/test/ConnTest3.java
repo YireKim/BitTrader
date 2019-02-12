@@ -13,7 +13,7 @@ public class ConnTest3 {
 						DatabaseFactory
 						.createDatabase(Vendor.ORACLE)
 						.getConnection()
-						.prepareStatement(EmployeeSQL.SELECT.toString())
+						.prepareStatement(EmployeeSQL.LIST.toString())
 						.executeUpdate();
 				
 						System.out.println(rs);

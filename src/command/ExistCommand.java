@@ -1,5 +1,7 @@
 package command;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -7,6 +9,7 @@ import javax.servlet.http.HttpSession;
 import domain.CustomersDTO;
 import domain.EmployeesDTO;
 import enums.Action;
+import proxy.Pagination;
 import service.CustomersServiceImpl;
 import service.EmployeesServiceImpl;
 
@@ -30,6 +33,12 @@ public class ExistCommand extends Command{
 			if(emp != null) {
 				System.out.println("ExistComm - EMP TURE");
 				session.setAttribute("employee", emp);
+				Pagination page = null;
+
+				List<CustomersDTO> list = CustomersServiceImpl.getInstance().retrieveListOfCustomers(page);
+				
+				request.setAttribute("list", list);
+
 			} else {
 				System.out.println("ExistComm - EMP FALSE");
 				super.setDomain("employee");
@@ -42,7 +51,7 @@ public class ExistCommand extends Command{
 			CustomersDTO cust = new CustomersDTO();
 			
 			cust.setCustomerId(request.getParameter("customer_id"));
-			cust.setContactName(request.getParameter("contact_name"));
+			cust.setPassword(request.getParameter("customer_password"));
 			
 			cust = CustomersServiceImpl.getInstance().retrieveAnCustomer(cust);
 			

@@ -38,6 +38,9 @@ public class CreateCommand extends Command{
 			cust.setCity(request.getParameter("cust_city"));
 			cust.setPostalCode(request.getParameter("cust_postalcode"));
 			cust.setCountry(request.getParameter("cust_country"));
+			cust.setSsn(request.getParameter("cust_ssn"));
+			cust.setPhone(request.getParameter("cust_phone"));
+			cust.setPassword(request.getParameter("cust_password"));
 			
 			CustomersServiceImpl.getInstance().addCustomer(cust);
 			break;

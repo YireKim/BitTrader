@@ -29,6 +29,11 @@ public class Commander {
 				cmd = new ExistCommand(request,response);
 				break;
 				
+			case LIST:
+				System.out.println("  3 Commander C EXIST cmd : "+Action.valueOf(request.getParameter("cmd").toUpperCase()));
+				cmd = new ListCommand(request,response);
+				break;
+				
 		}
 		return cmd;
 	}

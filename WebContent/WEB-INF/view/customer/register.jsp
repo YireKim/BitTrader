@@ -30,6 +30,15 @@
 		<span class="input-group-addon" id="basic-addon5">COUNTRY</span>
   		<input type="text" class="form-control" name="cust_country" id="country" placeholder="Country" aria-describedby="basic-addon5">
   
+		<span class="input-group-addon" id="basic-addon6">SSN</span>
+  		<input type="text" class="form-control" name="cust_ssn" id="ssn" placeholder="SSN" aria-describedby="basic-addon5">
+  
+		<span class="input-group-addon" id="basic-addon7">PHONE</span>
+  		<input type="text" class="form-control" name="cust_phone" id="phone" placeholder="Phone" aria-describedby="basic-addon5">
+  
+		<span class="input-group-addon" id="basic-addon8">PASSWORD</span>
+  		<input type="text" class="form-control" name="cust_password" id="paaword" placeholder="Password" aria-describedby="basic-addon5">
+  
   		<div class="col-md-6"> 
   			<span class="input-group-btn">
         	<button class="btn btn-default" id="joinbtn" type="submit">JOIN</button></span>	
@@ -59,16 +68,14 @@
 		var custcity = $('#city').val();
 		var custcode = $('#postalcode').val();
 		var custcountry = $('#country').val();
-
-		if (contname === '') {
-			alert('Must insert customers name');
-		} else if (add === '') {
-			alert('Must insert customers address');
-		} else if (city === '') {
-			alert('Must insert customers city');
-		} else if (postalcode === '') {
-			alert('Must insert customers postal code ');
-		} else {
+		var custaddress = $('#address').val();
+		var custssn = $('#ssn').val();
+		var custphone = $('#phone').val();
+		var custpassword = $('#password').val();
+		
+		if (custpassword === '') {
+			alert('Must insert all values');
+			} else {
 			alert('Moving..');
 			$('#joinform').attr('action', '${ctx}/customer.do').submit();
 		}

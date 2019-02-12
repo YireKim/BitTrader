@@ -15,6 +15,7 @@ public class EmployeesDAOImpl implements EmployeesDAO{
 	private static EmployeesDAOImpl instance = new EmployeesDAOImpl();
 	
 	private EmployeesDAOImpl() {
+		
 	}
 	
 	public static EmployeesDAOImpl getInstance() {return instance;}
@@ -97,7 +98,6 @@ public class EmployeesDAOImpl implements EmployeesDAO{
 	@Override
 	public EmployeesDTO selectAnEmployee(EmployeesDTO emp) {
 		EmployeesDTO temp = null;
-
 		try {
 			PreparedStatement ps = DatabaseFactory
 					.createDatabase(Vendor.ORACLE)
@@ -154,16 +154,10 @@ public class EmployeesDAOImpl implements EmployeesDAO{
 		
 		
 		try {
-			String sql = String.format(EmployeeSQL.ACCESS.toString(),
-					emp.getEmployeeId(),
-					emp.getName());
-			
-			PreparedStatement ps; 
-		
-			ps = DatabaseFactory
+			PreparedStatement ps = DatabaseFactory
 			.createDatabase(Vendor.ORACLE)
 			.getConnection()
-			.prepareStatement(sql);
+			.prepareStatement(EmployeeSQL.ACCESS.toString());
 			
 			ps.setString(1, "");
 			ResultSet rs = ps.executeQuery();
