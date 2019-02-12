@@ -56,8 +56,8 @@ public class CustomersDAOImpl implements CustomersDAO{
 			.getConnection()
 			.prepareStatement(CustomerSQL.LIST.toString());
 			
-			ps.setInt(1, page.getStartRow());
-			ps.setInt(2, page.getEndRow());
+			ps.setInt(1, page.getStartPage());
+			ps.setInt(2, page.getEndPage());
 			
 			ResultSet rs = ps.executeQuery();
 			
@@ -128,7 +128,20 @@ public class CustomersDAOImpl implements CustomersDAO{
 
 	@Override
 	public int countCustomers() {
-		return 0;
+		int count = 0;
+		try {
+			PreparedStatement ps = DatabaseFactory
+					.createDatabase(Vendor.ORACLE)
+					.getConnection()
+					.prepareStatement(CustomerSQL.COUNT.toString());
+			
+			ps.executeQuery();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return count;
 	}
 
 	@Override

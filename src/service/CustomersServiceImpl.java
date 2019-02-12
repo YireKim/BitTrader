@@ -40,8 +40,7 @@ public class CustomersServiceImpl implements CustomersService {
 
 	@Override
 	public int countEmpCustomer() {
-		// TODO Auto-generated method stub
-		return 0;
+		return dao.countCustomers();
 	}
 
 	@Override

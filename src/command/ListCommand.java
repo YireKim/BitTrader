@@ -26,6 +26,7 @@ public class ListCommand extends Command {
 			List<CustomersDTO> list = CustomersServiceImpl.getInstance().retrieveListOfCustomers(new Proxy().getPage());
 
 			request.setAttribute("list", list);
+			
 			System.out.println("LIST comm : cmd"+page_num);
 			System.out.println("LIST comm : list"+list);
 			break;

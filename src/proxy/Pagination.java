@@ -9,38 +9,33 @@ import service.CustomersServiceImpl;
 @Data
 public class Pagination implements Capable {
 	private HttpServletRequest request;
-	private int pageNum, pageSize, blockSize, totalCount, 
-				startPage, endPage, startRow, endRow,
-				prevBlock, nextBlock,
-				displayRow, displayPage;
-	private boolean existPrev, existNext;
+	private int pageNum, totalCount, 
+				startPage, endPage;
+	private boolean prev, next;
 	
 	@Override
 	public void carryOut() {
 
 		HttpServletRequest request = Receiver.cmd.getRequest();
 		
-		this.pageNum = Integer.parseInt(request.getParameter("page_num"));
-		//this.totalCount = CustomersServiceImplpl.getInstance().countEmpCustomer();
-		this.totalCount = 57;
-		this.displayRow = 10;
-		this.displayPage = 10;
+		int displayPageNum = 10;
+
+		int tempEndPage = (int)Math.ceil(totalCount/(double)displayPageNum);
 		
-			endPage = ((int)Math.ceil(pageNum/(double)displayPage))*displayPage;
-	        System.out.println("end p : " + endPage);
+		this.pageNum = Integer.parseInt(request.getParameter("page_num"));
+		this.totalCount = CustomersServiceImpl.getInstance().countEmpCustomer();
+		
+		endPage = ((int)Math.ceil(pageNum/(double)displayPageNum))*displayPageNum;
+	    System.out.println("end p : " + endPage);
+	    
+	    startPage = endPage - (displayPageNum - 1);
+	    System.out.println("start p: " + startPage);
 	        
-	        startPage = endPage - (displayPage - 1);
-	        System.out.println("start p: " + startPage);
-	        
-	        int totalPage = (int)Math.ceil(totalCount/(double)displayRow);
-	        
-	        if(totalPage<endPage){
-	            endPage = totalPage;
-	            existNext = false;
-	        }else{
-	        	existNext = true;
+	    	if(endPage > tempEndPage){
+	            endPage = tempEndPage;
 	        }
-	        existPrev = (startPage==1)?false:true; 
+	    prev = (startPage==1)?false:true; 
+	    next = endPage * displayPageNum >= totalCount ? false : true;
 		
 	}	
 }

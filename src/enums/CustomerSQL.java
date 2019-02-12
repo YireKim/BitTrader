@@ -2,7 +2,7 @@ package enums;
 
 public enum CustomerSQL {
 
-	SIGNUP, SIGNIN, LIST;
+	SIGNUP, SIGNIN, LIST, COUNT;
 	
 	@Override
 	public String toString() {
@@ -30,12 +30,17 @@ public enum CustomerSQL {
 			break;
 
 		case LIST:
-			query.append("SELECT T.* \n" + 
+			query.append("SELECT L.NO\n" + 
 					"FROM\n" + 
-					"(SELECT ROWNUM NO, C.*\n" + 
-					"FROM CUSTOMERS C\n" + 
-					"ORDER BY NO DESC) T\n" + 
-					"WHERE T.NO BETWEEN ? AND ?");
+					"(SELECT T.NO\n" + 
+					"FROM\n" + 
+					"		(SELECT ROWNUM NO, C.* FROM CUSTOMERS C ORDER BY NO DESC) T\n" + 
+					"		WHERE ROWNUM <= ?) L\n" + 
+					"WHERE L.NO >= ?");
+			break;
+			
+		case COUNT:
+			query.append("SELECT COUNT(*) AS totalCount FROM CUSTOMERS");
 			break;
 			
 		default:
