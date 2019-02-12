@@ -2,40 +2,39 @@ package proxy;
 
 import javax.servlet.http.HttpServletRequest;
 
-import command.Receiver;
 import lombok.Data;
 import service.CustomersServiceImpl;
 
 @Data
-public class Pagination implements Capable {
+public class Pagination implements Proxy {
 	private HttpServletRequest request;
-	private int pageNum, totalCount, 
-				startPage, endPage;
-	private boolean prev, next;
 	
+	private int pageNum, totalCount, startPage, endPage, displayPageNum, pageSize, blockSize;
+	private boolean prev, next;
+
 	@Override
-	public void carryOut() {
+	public void carryOut(Object o) {
 
-		HttpServletRequest request = Receiver.cmd.getRequest();
+		HttpServletRequest request = (HttpServletRequest)o;
 		
-		int displayPageNum = 10;
+		String _pageNum = request.getParameter("page_num");
+		pageNum = (_pageNum == null) ? 1 : Integer.parseInt(_pageNum);
+		
+		String _pageSize = request.getParameter("page_size");
+		pageSize = (_pageSize == null) ? 10 : Integer.parseInt(_pageSize);
+		
+		String _blockSize = request.getParameter("block_size");
+		blockSize = (_blockSize == null) ? 10 : Integer.parseInt(_blockSize);
 
-		int tempEndPage = (int)Math.ceil(totalCount/(double)displayPageNum);
+		displayPageNum = CustomersServiceImpl.getInstance().countEmpCustomer();
 		
-		this.pageNum = Integer.parseInt(request.getParameter("page_num"));
-		this.totalCount = CustomersServiceImpl.getInstance().countEmpCustomer();
+		startPage = (pageNum-1) * (pageSize+1);
+		System.out.println("start ROW: "+startPage);
 		
-		endPage = ((int)Math.ceil(pageNum/(double)displayPageNum))*displayPageNum;
-	    System.out.println("end p : " + endPage);
-	    
-	    startPage = endPage - (displayPageNum - 1);
-	    System.out.println("start p: " + startPage);
-	        
-	    	if(endPage > tempEndPage){
-	            endPage = tempEndPage;
-	        }
-	    prev = (startPage==1)?false:true; 
-	    next = endPage * displayPageNum >= totalCount ? false : true;
-		
-	}	
+		endPage = (displayPageNum > pageNum * pageSize)?
+				pageNum * pageSize : endPage;
+		System.out.println("end ROW : "+endPage);
+
+	}
+
 }

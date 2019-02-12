@@ -6,8 +6,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import domain.CustomersDTO;
-import enums.Action;
-import proxy.Proxy;
+import proxy.PageProxy;
+import proxy.Pagination;
 import service.CustomersServiceImpl;
 
 public class ListCommand extends Command {
@@ -16,25 +16,17 @@ public class ListCommand extends Command {
 		
 		super(request, response);
 		
-		System.out.println(page);
-		System.out.println(page_num);
-		System.out.println(page_start);
-		System.out.println(page_end);
+		PageProxy pageProxy = new PageProxy();
+		Pagination pagination = new Pagination();
+	
+		pagination.carryOut(request);
+		pageProxy.carryOut(pagination);
 		
-		switch(Action.valueOf(request.getParameter("cmd").toUpperCase())) {
-		case LIST:
-			List<CustomersDTO> list = CustomersServiceImpl.getInstance().retrieveListOfCustomers(new Proxy().getPage());
+		List<CustomersDTO> list = CustomersServiceImpl.getInstance().retrieveListOfCustomers(pagination);
 
-			request.setAttribute("list", list);
+		request.setAttribute("list", list);
 			
-			System.out.println("LIST comm : cmd"+page_num);
-			System.out.println("LIST comm : list"+list);
-			break;
-			
-		default:
-			break;
-		
-		}
+		System.out.println("LIST comm : list"+list);
 	}
 	
 }

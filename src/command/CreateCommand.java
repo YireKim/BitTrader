@@ -9,29 +9,31 @@ import enums.Action;
 import service.CustomersServiceImpl;
 import service.EmployeesServiceImpl;
 
-public class CreateCommand extends Command{
-	
-	public CreateCommand(HttpServletRequest request, HttpServletResponse response) {
+public class CreateCommand extends Command {
 
+	public CreateCommand(HttpServletRequest request, HttpServletResponse response) {
+		// public CreateCommand(Map<String,Proxy> pxy) {
+		// RequestProxy req = (RequestProxy) pxy.get("req");
+		// HttpServletRequest request = req.getRequest();
 		super(request, response);
-		
-		switch(Action.valueOf(request.getParameter("cmd").toUpperCase())) {
+
+		switch (Action.valueOf(request.getParameter("cmd").toUpperCase())) {
 		case REGISTER:
 			System.out.println("=-= [ 4-2 Create comm EMP ] ");
-			
+
 			EmployeesDTO emp = new EmployeesDTO();
 			emp.setName(request.getParameter("employeeName"));
 			emp.setBirthDate(request.getParameter("birthDate"));
 			emp.setPhoto(request.getParameter("photo"));
 			emp.setNoteInfo(request.getParameter("noteInfo"));
 			emp.setManagerId(request.getParameter("managerId"));
-			
+
 			EmployeesServiceImpl.getInstance().addEmployee(emp);
 			break;
 
 		case SIGNUP:
 			System.out.println("=-= [ 4-2 Create comm CUST ] ");
-			
+
 			CustomersDTO cust = new CustomersDTO();
 			cust.setContactName(request.getParameter("cust_contact_name"));
 			cust.setAddress(request.getParameter("cust_address"));
@@ -41,12 +43,12 @@ public class CreateCommand extends Command{
 			cust.setSsn(request.getParameter("cust_ssn"));
 			cust.setPhone(request.getParameter("cust_phone"));
 			cust.setPassword(request.getParameter("cust_password"));
-			
+
 			CustomersServiceImpl.getInstance().addCustomer(cust);
 			break;
 		default:
 			break;
 		}
-		
+
 	}
 }

@@ -4,7 +4,7 @@ import java.util.List;
 
 import dao.CustomersDAOImpl;
 import domain.CustomersDTO;
-import proxy.Pagination;
+import proxy.Proxy;
 
 public class CustomersServiceImpl implements CustomersService {
 
@@ -14,17 +14,20 @@ public class CustomersServiceImpl implements CustomersService {
 		dao = CustomersDAOImpl.getInstance();
 	}
 
-	public static CustomersServiceImpl getInstance() {return instance;}
-		CustomersDAOImpl dao;
-	
+	public static CustomersServiceImpl getInstance() {
+		return instance;
+	}
+
+	CustomersDAOImpl dao;
+
 	@Override
 	public void addCustomer(CustomersDTO cust) {
 		dao.insertCustomer(cust);
 	}
 
 	@Override
-	public List<CustomersDTO> retrieveListOfCustomers(Pagination page) {
-		return dao.selectListOfCustomers(page);
+	public List<CustomersDTO> retrieveListOfCustomers(Proxy pxy) {
+		return dao.selectListOfCustomers(pxy);
 	}
 
 	@Override
@@ -51,14 +54,13 @@ public class CustomersServiceImpl implements CustomersService {
 	@Override
 	public void modifyCustomer(CustomersDTO cust) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void removceCustomer(CustomersDTO cust) {
 		// TODO Auto-generated method stub
-		
-	}
-	
-}
 
+	}
+
+}

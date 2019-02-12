@@ -10,59 +10,66 @@ import domain.CustomersDTO;
 import enums.CustomerSQL;
 import enums.Vendor;
 import factory.DatabaseFactory;
+import proxy.PageProxy;
 import proxy.Pagination;
+import proxy.Proxy;
 
-public class CustomersDAOImpl implements CustomersDAO{
+public class CustomersDAOImpl implements CustomersDAO {
 
 	private static CustomersDAOImpl instance = new CustomersDAOImpl();
-	
+
 	private CustomersDAOImpl() {
-		
-		}
-	
-	public static CustomersDAOImpl getInstance() {return instance;}
+
+	}
+
+	public static CustomersDAOImpl getInstance() {
+		return instance;
+	}
 
 	@Override
 	public void insertCustomer(CustomersDTO cust) {
 		try {
-		PreparedStatement ps = DatabaseFactory
-				.createDatabase(Vendor.ORACLE)
-				.getConnection()
-				.prepareStatement(CustomerSQL.SIGNUP.toString());
-		
-		ps.setString(1, cust.getContactName());
-		ps.setString(2, cust.getAddress());
-		ps.setString(3, cust.getCity());
-		ps.setString(4, cust.getPostalCode());
-		ps.setString(5, cust.getCountry());
-		ps.setString(6, cust.getSsn());
-		ps.setString(7, cust.getPhone());
-		ps.setString(8, cust.getPassword());
-		
-		ps.executeQuery();
-		
+			PreparedStatement ps = DatabaseFactory.createDatabase(Vendor.ORACLE).getConnection()
+					.prepareStatement(CustomerSQL.SIGNUP.toString());
+
+			ps.setString(1, cust.getContactName());
+			ps.setString(2, cust.getAddress());
+			ps.setString(3, cust.getCity());
+			ps.setString(4, cust.getPostalCode());
+			ps.setString(5, cust.getCountry());
+			ps.setString(6, cust.getSsn());
+			ps.setString(7, cust.getPhone());
+			ps.setString(8, cust.getPassword());
+
+			ps.executeQuery();
+
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 	}
 
 	@Override
-	public List<CustomersDTO> selectListOfCustomers(Pagination page) {
-		List<CustomersDTO> list = new ArrayList<>(); 
-		
+	public List<CustomersDTO> selectListOfCustomers(Proxy pxy) {
+		List<CustomersDTO> list = new ArrayList<>();
+
 		try {
+			Pagination page = ((PageProxy)pxy).getPage();
 			PreparedStatement ps = DatabaseFactory
-			.createDatabase(Vendor.ORACLE)
-			.getConnection()
-			.prepareStatement(CustomerSQL.LIST.toString());
+					.createDatabase(Vendor.ORACLE)
+					.getConnection()
+					.prepareStatement(CustomerSQL.LIST.toString());
+
+			System.out.println("===== CustomerDAOimpl 1 : "+page.getStartPage()+"   "+page.getEndPage());
 			
-			ps.setInt(1, page.getStartPage());
-			ps.setInt(2, page.getEndPage());
+			ps.setString(1, String.valueOf(page.getEndPage()));
+			ps.setString(2, String.valueOf(page.getStartPage()));
+
+			System.out.println("===== CustomerDAOimpl 2 : "+page.getStartPage()+"   "+page.getEndPage());
 			
 			ResultSet rs = ps.executeQuery();
-			
+
 			CustomersDTO cust = null;
-			while(rs.next()) {
+			while (rs.next()) {
 				cust = new CustomersDTO();
 				cust.setNo(rs.getString("NO"));
 				cust.setCustomerId(rs.getString("CUSTOMER_ID"));
@@ -74,15 +81,15 @@ public class CustomersDAOImpl implements CustomersDAO{
 				cust.setSsn(rs.getString("SSN"));
 				cust.setPhone(rs.getString("PHONE"));
 				cust.setPassword(rs.getString("PASSWORD"));
-				
+
 				list.add(cust);
 			}
-			
+
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+
 		return list;
 	}
 
@@ -96,9 +103,7 @@ public class CustomersDAOImpl implements CustomersDAO{
 	public CustomersDTO selectAnCustomer(CustomersDTO cust) {
 		CustomersDTO temp = null;
 		try {
-			PreparedStatement ps = DatabaseFactory
-					.createDatabase(Vendor.ORACLE)
-					.getConnection()
+			PreparedStatement ps = DatabaseFactory.createDatabase(Vendor.ORACLE).getConnection()
 					.prepareStatement(CustomerSQL.SIGNIN.toString());
 
 			ps.setString(1, cust.getCustomerId());
@@ -122,7 +127,7 @@ public class CustomersDAOImpl implements CustomersDAO{
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		
+
 		return temp;
 	}
 
@@ -130,13 +135,11 @@ public class CustomersDAOImpl implements CustomersDAO{
 	public int countCustomers() {
 		int count = 0;
 		try {
-			PreparedStatement ps = DatabaseFactory
-					.createDatabase(Vendor.ORACLE)
-					.getConnection()
+			PreparedStatement ps = DatabaseFactory.createDatabase(Vendor.ORACLE).getConnection()
 					.prepareStatement(CustomerSQL.COUNT.toString());
-			
+
 			ps.executeQuery();
-			
+
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -148,36 +151,33 @@ public class CustomersDAOImpl implements CustomersDAO{
 	public boolean existCustomerId(CustomersDTO cust) {
 		boolean exist = false;
 		try {
-			PreparedStatement ps = DatabaseFactory
-			.createDatabase(Vendor.ORACLE)
-			.getConnection()
-			.prepareStatement(CustomerSQL.SIGNIN.toString());
-			
+			PreparedStatement ps = DatabaseFactory.createDatabase(Vendor.ORACLE).getConnection()
+					.prepareStatement(CustomerSQL.SIGNIN.toString());
+
 			ps.setString(1, cust.getCustomerId());
 			ps.setString(2, cust.getContactName());
-			
+
 			ResultSet rs = ps.executeQuery();
-			if(rs.next()) {
+			if (rs.next()) {
 				exist = true;
-				}
-			
+			}
+
 		} catch (SQLException e) {
-			
+
 			e.printStackTrace();
 		}
-		
+
 		return exist;
 	}
 
 	@Override
 	public void updateCustomer(CustomersDTO cust) {
-		
+
 	}
 
 	@Override
 	public void deleteCustomer(CustomersDTO cust) {
-		
+
 	}
-	
 
 }

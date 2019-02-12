@@ -8,14 +8,19 @@ import enums.Action;
 public class Commander {
 
 	public static Command order(HttpServletRequest request, HttpServletResponse response) {
-
-		System.out.println("=-= [ 3 Commander] ");
+  //public static Command order(Map<String,Proxy> pxy) {
+		
+		//RequestProxy req = (RequestProxy) pxy.get("req");
+		//HttpServletRequest request = req.getRequest();
+		
+		System.out.println("=-= [ 3/5 Commander] ");
 		
 		Command cmd = null;
 		
 		switch (Action.valueOf(request.getParameter("cmd").toUpperCase())) {
 			case MOVE:
 				System.out.println("  3 Commander C MOVE cmd : "+Action.valueOf(request.getParameter("cmd").toUpperCase()));
+			  //cmd = new Command(pxy);
 				cmd = new Command(request, response);
 				break;
 				
