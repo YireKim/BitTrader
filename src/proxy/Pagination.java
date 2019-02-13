@@ -8,8 +8,12 @@ import service.CustomersServiceImpl;
 @Data
 public class Pagination implements Proxy {
 	private HttpServletRequest request;
-	
-	private int pageNum, totalCount, startPage, endPage, displayPageNum, pageSize, blockSize;
+
+	private int pageNum, totalCount, 
+				startRow, endRow,
+				startPage, endPage, 
+				pageSize, displayPageNum, 
+				blockSize;
 	private boolean prev, next;
 
 	@Override
@@ -17,23 +21,41 @@ public class Pagination implements Proxy {
 
 		HttpServletRequest request = (HttpServletRequest)o;
 		
+		System.out.println("=-= [ 7 Pagination ]");
+		
 		String _pageNum = request.getParameter("page_num");
 		pageNum = (_pageNum == null) ? 1 : Integer.parseInt(_pageNum);
-		
-		String _pageSize = request.getParameter("page_size");
-		pageSize = (_pageSize == null) ? 10 : Integer.parseInt(_pageSize);
-		
-		String _blockSize = request.getParameter("block_size");
-		blockSize = (_blockSize == null) ? 10 : Integer.parseInt(_blockSize);
+		System.out.println("page num : "+pageNum);
 
-		displayPageNum = CustomersServiceImpl.getInstance().countEmpCustomer();
+		String _pageSize = request.getParameter("page_size");
+		pageSize = (_pageSize == null) ? 10 : Integer.parseInt(_pageSize);		
+		System.out.println("page size : "+pageSize);
+
+		displayPageNum = 10;	
+
+		totalCount = CustomersServiceImpl.getInstance().countEmpCustomer(null);
+		System.out.println("total count : "+totalCount);
+	
+//		startPage = ((pageNum - 1) * pageSize) + 1; ASC
+		startRow = totalCount - (pageNum * pageSize) + 1; //DESC
 		
-		startPage = (pageNum-1) * (pageSize+1);
-		System.out.println("start ROW: "+startPage);
+//		endPage = (totalCount < pageNum * pageSize) ? totalCount : pageNum * pageSize; ASC
+		endRow =  startRow + (pageSize - 1); //DESC
+
+		startRow = (startRow < 0) ? 1 : startRow;
 		
-		endPage = (displayPageNum > pageNum * pageSize)?
-				pageNum * pageSize : endPage;
-		System.out.println("end ROW : "+endPage);
+		endPage = (int) (pageNum / (double) displayPageNum) * (displayPageNum);
+		startPage = (endPage - displayPageNum) + 1;
+		
+		int tempEndPage = (int) (Math.ceil(totalCount / (double) pageSize));
+		System.out.println(" Page Count : "+tempEndPage);
+		
+		if (pageNum > tempEndPage || pageNum < 0) {
+			pageNum = 1;
+			}  
+		
+		prev = startPage == 1 ? false : true;
+		next = endPage * pageSize >= totalCount ? false : true;
 
 	}
 

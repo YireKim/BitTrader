@@ -1,20 +1,26 @@
 package command;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 import domain.CustomersDTO;
 import proxy.PageProxy;
 import proxy.Pagination;
+import proxy.Proxy;
+import proxy.RequestProxy;
 import service.CustomersServiceImpl;
 
 public class ListCommand extends Command {
 
-	public ListCommand(HttpServletRequest request, HttpServletResponse response) {
+	public ListCommand(Map<String,Proxy> pxy) {
+		super(pxy);
 		
-		super(request, response);
+		System.out.println("=-= [ List Command ]");
+		
+		RequestProxy requestProxy = (RequestProxy) pxy.get("requestProxy");
+		HttpServletRequest request = requestProxy.getRequest();
 		
 		PageProxy pageProxy = new PageProxy();
 		Pagination pagination = new Pagination();
@@ -22,7 +28,7 @@ public class ListCommand extends Command {
 		pagination.carryOut(request);
 		pageProxy.carryOut(pagination);
 		
-		List<CustomersDTO> list = CustomersServiceImpl.getInstance().retrieveListOfCustomers(pagination);
+		List<CustomersDTO> list = CustomersServiceImpl.getInstance().retrieveListOfCustomers(pageProxy);
 
 		request.setAttribute("list", list);
 			

@@ -45,12 +45,10 @@
 	color: white;
 	border: 1px solid #4CAF50;
 }
-
-.pagination a:hover:not (.active ) {
+.pagination a:hover:not(.active) { 
 	background-color: #4CAF50;
 }
 </style>
-
 
 <div class="table1">
 	<table>
@@ -82,38 +80,66 @@
 	</table>
 </div>
 
+
+<%-- <div class="pagination">
+	<a href="#">&lt;</a>
+	<c:forEach begin="1" end="5" varStatus="status">
+		<a href="#" id="page_${ status.count }">${ status.count }</a>
+	</c:forEach>
+	<a href="#">&gt;</a>
+</div> --%>
+
+
+<%-- <div class="pagination" style="margin-left: 200px">
+
+<c:url var="action" value="/customer.do?&cmd=list&page=list"/>
+<a href="javascript:PageMove(${pagination.prev})">&lt;</a>
+<c:if test="${param.prev}">
+    <a href="${action}?page_num=${param.beginPage-1}">prev</a>
+</c:if>
+<c:forEach begin="${param.startPage}" end="${param.endPage}" step="1" var="index">
+    <c:choose>
+        <c:when test="${param.page_num==index}">
+            ${index}
+        </c:when>
+        <c:otherwise>
+            <a href="${action}?page=${index}">${index}</a>
+        </c:otherwise>
+    </c:choose>
+</c:forEach>
+<c:if test="${param.next}">
+    <a href="${action}?page=${param.endPage+1}">next</a>
+</c:if>
+</div> --%>
 <div class="pagination">
-  <a href="#">&lt;</a>
-  <a href="#" class="page1">1</a>
-  <a href="#" class="page2">2</a>
-  <a href="#" class="page3">3</a>
-  <a href="#" class="page4">4</a>
-  <a href="#" class="page5">5</a>
-  <a href="#">&gt;</a>
+<span style="font-size: 12pt;"><!-- Paging : S -->
+  <c:if test="${totalCount > 0}">
+  <!--페이지 개수  -->
+    <c:set var="pageCount" value="${totalCount / pageSize + ( totalCount % pageSize == 0 ? 0 : 1)}" />
+    <c:set var="startPage" value="${pageGroupSize*(nowPageGroup-1)+1}" />
+    <c:set var="endPage" value="${startPage + pageGroupSize-1}" />
+    <c:if test="${endPage > pageCount}">
+      <c:set var="endPage" value="${pageCount}" />
+    </c:if>
+ 
+    <c:if test="${nowPageGroup > 1}">
+      <a href="<c:url value = "${CTX_PATH}boardList.do?pageIndex=${(nowPageGroup-2)*pageGroupSize+1 }&pageSize=${pageSize}"/>">[이전]</a>
+    </c:if>
+ 
+    <c:forEach var="i" begin="${startPage}" end="${endPage}">
+      <a href="<c:url value="boardList.do?pageIndex=${i}&pageSize=${pageSize}&bbs_sno=${bbs_sno}"/>">
+        <c:if test="${pageNum == i}"></c:if> ${i} ]
+      </a>
+    </c:forEach>
+ 
+    <c:if test="${nowPageGroup < pageGroupCount}">
+      <a href="<c:url value = "boardList.do?pageIndex=${nowPageGroup*pageGroupSize+1}&pageSize=${pageSize}"/>">[다음]</a>
+    </c:if>
+  </c:if>
+  <!-- Pageing : E -->
+</span>
 </div>
 
+출처: https://lee-mandu.tistory.com/180 [개발/일상_Mr.lee]
+
 <jsp:include page="../home/tail.jsp" />
-
-<script>
-
-$('.page1').click(function(){
-	location.assign('customer.do?cmd=list&page=list&page_num=1');
-});
-
-$('.page2').click(function(){
-	location.assign('customer.do?employee_id=1000&employee_name=SULMIN&cmd=list&page=list&page_num=2');
-});
-
-$('.page3').click(function(){
-	alert('Page3');
-});
-
-$('.page4').click(function(){
-	alert('Page4');
-});
-
-$('.page5').click(function(){
-	alert('Page6');
-});
-
-</script>

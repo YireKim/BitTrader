@@ -22,7 +22,6 @@ public class EmployeesController extends HttpServlet {
 		
 		Receiver.init(request, response);  // 1 to 5 << was Receiver area
 			
-	
 		Carrier.forward(request, response);
 		
 		System.out.println(" 1 Emp contr last out WITH \n"

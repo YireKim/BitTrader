@@ -1,12 +1,14 @@
 package command;
 
+import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 import lombok.Data;
+import proxy.Proxy;
+import proxy.RequestProxy;
 
 @Data
-
 public class Command implements Order {
 
 	protected HttpServletRequest request;
@@ -15,12 +17,11 @@ public class Command implements Order {
 	public Command() {
 	}
 
-	public Command(HttpServletRequest request, HttpServletResponse response) {
-		// public Command(Map<String,Proxy> pxy) {
-
-		// RequestProxy req = (RequestProxy) pxy.get("req");
-
-		setRequest(request);
+	public Command(Map<String,Proxy> pxy) {
+		
+		RequestProxy requestProxy = (RequestProxy) pxy.get("requestProxy");
+		HttpServletRequest request = requestProxy.getRequest();
+		
 		setAction(request.getParameter("cmd"));
 
 		String dir = request.getParameter("dir");
@@ -34,7 +35,7 @@ public class Command implements Order {
 		setPage(request.getParameter("page"));
 		execute();
 		
-		System.out.println("=-= [ 5 Command ]"
+		System.out.println("=-= [ 4 Command ]"
 				+ "\n[ action/cmd : "+action+" ]"
 				+ "\n[ doma : "+domain+" ]"
 				+ "\n[ dir : "+dir+" ]"

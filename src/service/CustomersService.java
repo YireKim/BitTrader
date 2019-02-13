@@ -14,7 +14,7 @@ public interface CustomersService {
 	public List<CustomersDTO> retrieveListOfCustomers(Proxy pxy);
 	public List<CustomersDTO> retrieveOneOfCustomers(CustomersDTO cust);
 	public CustomersDTO retrieveAnCustomer(CustomersDTO cust);
-	public int countEmpCustomer();
+	public int countEmpCustomer(Proxy pxy);
 	public boolean existCustomer(CustomersDTO cust);
 	
 	// UPDATE

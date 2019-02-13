@@ -1,9 +1,9 @@
 package command;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import domain.CustomersDTO;
@@ -12,21 +12,26 @@ import enums.Action;
 import proxy.PageProxy;
 import proxy.Pagination;
 import proxy.Proxy;
+import proxy.RequestProxy;
 import service.CustomersServiceImpl;
 import service.EmployeesServiceImpl;
 
 public class ExistCommand extends Command {
 
-	public ExistCommand(HttpServletRequest request, HttpServletResponse response) {
-  //public ExistCommand(Map<String,Proxy> pxy) {
-	  //RequestProxy req = (RequestProxy) pxy.get("req");
-	  //HttpServletRequest request = req.getRequest();
+	public ExistCommand(Map<String,Proxy> pxy) {
 		
-		super(request, response);
+		super(pxy);
+		
+		System.out.println("=-= [ 4 Exist Command ]");
+		
+	    RequestProxy requestProxy = (RequestProxy) pxy.get("requestProxy");
+	    HttpServletRequest request = requestProxy.getRequest();
+		
 		HttpSession session = request.getSession();
-
+		
 		switch (Action.valueOf(request.getParameter("cmd").toUpperCase())) {
 		case ACCESS:
+			System.out.println("=-= 6 Exist Comm : ACCESS IN");
 			EmployeesDTO emp = new EmployeesDTO();
 
 			emp.setEmployeeId(request.getParameter("employee_id"));
@@ -35,7 +40,7 @@ public class ExistCommand extends Command {
 			emp = EmployeesServiceImpl.getInstance().retrieveAnEmployee(emp);
 
 			if (emp != null) {
-				System.out.println("ExistComm - EMP TURE");
+				System.out.println(" 6 Exist Comm - ACCESS EMP TURE");
 				
 				session.setAttribute("employee", emp);
 				
@@ -48,11 +53,9 @@ public class ExistCommand extends Command {
 				List<CustomersDTO> list = CustomersServiceImpl.getInstance().retrieveListOfCustomers(pagePxy);
 
 				request.setAttribute("list", list);
-				
-				System.out.println("Total cust : "+list.size());
-
+				System.out.println(" List size : "+list.size());
 			} else {
-				System.out.println("ExistComm - EMP FALSE");
+				System.out.println("6 Exist Comm - ACCESS EMP FALSE");
 				super.setDomain("employee");
 				super.setPage("access");
 				super.execute();
@@ -77,7 +80,7 @@ public class ExistCommand extends Command {
 				super.execute();
 			}
 			break;
-
+			
 		default:
 			break;
 		}

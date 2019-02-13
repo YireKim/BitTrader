@@ -14,7 +14,7 @@ public interface CustomersDAO {
 	public List<CustomersDTO> selectListOfCustomers(Proxy pxy);
 	public List<CustomersDTO> selectOneOfCustomers(CustomersDTO cust);
 	public CustomersDTO selectAnCustomer(CustomersDTO cust);
-	public int countCustomers();
+	public int countCustomers(Proxy pxy);
 	public boolean existCustomerId(CustomersDTO cust);
 	
 	// UPDATE

@@ -32,8 +32,7 @@ public class CustomersServiceImpl implements CustomersService {
 
 	@Override
 	public List<CustomersDTO> retrieveOneOfCustomers(CustomersDTO cust) {
-		// TODO Auto-generated method stub
-		return null;
+		return dao.selectOneOfCustomers(cust);
 	}
 
 	@Override
@@ -42,8 +41,8 @@ public class CustomersServiceImpl implements CustomersService {
 	}
 
 	@Override
-	public int countEmpCustomer() {
-		return dao.countCustomers();
+	public int countEmpCustomer(Proxy pxy) {
+		return dao.countCustomers(pxy);
 	}
 
 	@Override
@@ -53,14 +52,12 @@ public class CustomersServiceImpl implements CustomersService {
 
 	@Override
 	public void modifyCustomer(CustomersDTO cust) {
-		// TODO Auto-generated method stub
-
+		dao.updateCustomer(cust);
 	}
 
 	@Override
 	public void removceCustomer(CustomersDTO cust) {
-		// TODO Auto-generated method stub
-
+		dao.deleteCustomer(cust);
 	}
 
 }

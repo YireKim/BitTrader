@@ -1,21 +1,24 @@
 package command;
 
+import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 import domain.CustomersDTO;
 import domain.EmployeesDTO;
 import enums.Action;
+import proxy.Proxy;
+import proxy.RequestProxy;
 import service.CustomersServiceImpl;
 import service.EmployeesServiceImpl;
 
 public class CreateCommand extends Command {
 
-	public CreateCommand(HttpServletRequest request, HttpServletResponse response) {
-		// public CreateCommand(Map<String,Proxy> pxy) {
-		// RequestProxy req = (RequestProxy) pxy.get("req");
-		// HttpServletRequest request = req.getRequest();
-		super(request, response);
+	public CreateCommand(Map<String,Proxy> pxy) {
+		super(pxy);
+		
+		RequestProxy requestProxy = (RequestProxy) pxy.get("requestProxy");
+		HttpServletRequest request = requestProxy.getRequest();
 
 		switch (Action.valueOf(request.getParameter("cmd").toUpperCase())) {
 		case REGISTER:

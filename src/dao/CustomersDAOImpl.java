@@ -19,7 +19,6 @@ public class CustomersDAOImpl implements CustomersDAO {
 	private static CustomersDAOImpl instance = new CustomersDAOImpl();
 
 	private CustomersDAOImpl() {
-
 	}
 
 	public static CustomersDAOImpl getInstance() {
@@ -51,7 +50,6 @@ public class CustomersDAOImpl implements CustomersDAO {
 	@Override
 	public List<CustomersDTO> selectListOfCustomers(Proxy pxy) {
 		List<CustomersDTO> list = new ArrayList<>();
-
 		try {
 			Pagination page = ((PageProxy)pxy).getPage();
 			PreparedStatement ps = DatabaseFactory
@@ -59,13 +57,14 @@ public class CustomersDAOImpl implements CustomersDAO {
 					.getConnection()
 					.prepareStatement(CustomerSQL.LIST.toString());
 
-			System.out.println("===== CustomerDAOimpl 1 : "+page.getStartPage()+"   "+page.getEndPage());
+			System.out.println("===== CustomerDAOimpl : IN >> Start "+page.getStartPage()+"   End "+page.getEndPage());
 			
-			ps.setString(1, String.valueOf(page.getEndPage()));
-			ps.setString(2, String.valueOf(page.getStartPage()));
+			String startRow = String.valueOf(page.getStartRow());
+			String endRow = String.valueOf(page.getEndRow());
+			
+			ps.setString(1, endRow);
+			ps.setString(2, startRow);
 
-			System.out.println("===== CustomerDAOimpl 2 : "+page.getStartPage()+"   "+page.getEndPage());
-			
 			ResultSet rs = ps.executeQuery();
 
 			CustomersDTO cust = null;
@@ -86,16 +85,13 @@ public class CustomersDAOImpl implements CustomersDAO {
 			}
 
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
 		return list;
 	}
 
 	@Override
 	public List<CustomersDTO> selectOneOfCustomers(CustomersDTO cust) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
@@ -132,14 +128,19 @@ public class CustomersDAOImpl implements CustomersDAO {
 	}
 
 	@Override
-	public int countCustomers() {
+	public int countCustomers(Proxy pxy) {
 		int count = 0;
 		try {
-			PreparedStatement ps = DatabaseFactory.createDatabase(Vendor.ORACLE).getConnection()
-					.prepareStatement(CustomerSQL.COUNT.toString());
+			PreparedStatement ps = DatabaseFactory
+					.createDatabase(Vendor.ORACLE)
+					.getConnection()
+					.prepareStatement(CustomerSQL.ROW_COUNT.toString());
 
-			ps.executeQuery();
-
+			ResultSet rs = ps.executeQuery();
+			
+			if (rs.next()) {
+				count = rs.getInt("TOTALCOUNT");
+			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -151,7 +152,9 @@ public class CustomersDAOImpl implements CustomersDAO {
 	public boolean existCustomerId(CustomersDTO cust) {
 		boolean exist = false;
 		try {
-			PreparedStatement ps = DatabaseFactory.createDatabase(Vendor.ORACLE).getConnection()
+			PreparedStatement ps = DatabaseFactory
+					.createDatabase(Vendor.ORACLE)
+					.getConnection()
 					.prepareStatement(CustomerSQL.SIGNIN.toString());
 
 			ps.setString(1, cust.getCustomerId());

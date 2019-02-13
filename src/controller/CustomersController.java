@@ -18,7 +18,8 @@ public class CustomersController extends HttpServlet {
 	protected void service(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		
-		Receiver.init(request, response);  // 1 to 5 << was Receiver area
+		System.out.println("=== Customer Controller");
+		Receiver.init(request, response); 
 		
 		Carrier.forward(request, response);
 	}
