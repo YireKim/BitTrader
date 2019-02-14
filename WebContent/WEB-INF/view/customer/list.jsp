@@ -26,8 +26,7 @@
 
 .pagination {
 	display: inline-block;
-	margin-left: auto;
-	margin-right: auto;
+	margin: auto auto auto 450px;
 }
 
 .pagination a {
@@ -111,35 +110,40 @@
     <a href="${action}?page=${param.endPage+1}">next</a>
 </c:if>
 </div> --%>
+
 <div class="pagination">
-<span style="font-size: 12pt;"><!-- Paging : S -->
-  <c:if test="${totalCount > 0}">
-  <!--페이지 개수  -->
-    <c:set var="pageCount" value="${totalCount / pageSize + ( totalCount % pageSize == 0 ? 0 : 1)}" />
-    <c:set var="startPage" value="${pageGroupSize*(nowPageGroup-1)+1}" />
-    <c:set var="endPage" value="${startPage + pageGroupSize-1}" />
-    <c:if test="${endPage > pageCount}">
-      <c:set var="endPage" value="${pageCount}" />
-    </c:if>
- 
-    <c:if test="${nowPageGroup > 1}">
-      <a href="<c:url value = "${CTX_PATH}boardList.do?pageIndex=${(nowPageGroup-2)*pageGroupSize+1 }&pageSize=${pageSize}"/>">[이전]</a>
-    </c:if>
- 
-    <c:forEach var="i" begin="${startPage}" end="${endPage}">
-      <a href="<c:url value="boardList.do?pageIndex=${i}&pageSize=${pageSize}&bbs_sno=${bbs_sno}"/>">
-        <c:if test="${pageNum == i}"></c:if> ${i} ]
-      </a>
-    </c:forEach>
- 
-    <c:if test="${nowPageGroup < pageGroupCount}">
-      <a href="<c:url value = "boardList.do?pageIndex=${nowPageGroup*pageGroupSize+1}&pageSize=${pageSize}"/>">[다음]</a>
-    </c:if>
-  </c:if>
-  <!-- Pageing : E -->
-</span>
+<c:choose>
+	<c:when test="${pagination.prev}">
+	<a href="#" class="prev">&laquo;</a>
+	</c:when>
+	<c:otherwise>
+	<a href="#" class="prev_x">X</a>
+	</c:otherwise>
+</c:choose>
+		<c:forEach begin="${pagination.startPage}" end="${pagination.endPage}" varStatus="status">
+    	<a href="#" class="page">${status.index}</a>
+		</c:forEach>
+<c:choose>
+	<c:when test="${pagination.next}">
+	<a href="#" class="next">&raquo;</a>
+	</c:when>
+	<c:otherwise>
+	<a href="#" class="next_x">X</a>
+	</c:otherwise>
+</c:choose>
 </div>
 
-출처: https://lee-mandu.tistory.com/180 [개발/일상_Mr.lee]
 
 <jsp:include page="../home/tail.jsp" />
+
+<script>
+$('.page' ).click(function() {
+	location.assign('${ctx}/customer.do?cmd=list&page=list&page_num='+$(this).text());
+});
+$('.prev' ).click(function() {
+	location.assign('${ctx}/customer.do?cmd=list&page=list&page_num='+${pagination.prevBlock});
+});
+$('.next' ).click(function() {
+	location.assign('${ctx}/customer.do?cmd=list&page=list&page_num='+${pagination.nextBlock});
+});
+</script>

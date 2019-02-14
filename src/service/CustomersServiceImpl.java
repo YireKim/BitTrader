@@ -1,6 +1,7 @@
 package service;
 
 import java.util.List;
+import java.util.Map;
 
 import dao.CustomersDAOImpl;
 import domain.CustomersDTO;
@@ -58,6 +59,11 @@ public class CustomersServiceImpl implements CustomersService {
 	@Override
 	public void removceCustomer(CustomersDTO cust) {
 		dao.deleteCustomer(cust);
+	}
+
+	@Override
+	public Map<String, Object> retrievePhoneNum(Proxy pxy) {
+		return dao.selectPhoneNum(pxy);
 	}
 
 }

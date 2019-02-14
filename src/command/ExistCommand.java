@@ -53,6 +53,8 @@ public class ExistCommand extends Command {
 				List<CustomersDTO> list = CustomersServiceImpl.getInstance().retrieveListOfCustomers(pagePxy);
 
 				request.setAttribute("list", list);
+				request.setAttribute("pagination", paging);
+
 				System.out.println(" List size : "+list.size());
 			} else {
 				System.out.println("6 Exist Comm - ACCESS EMP FALSE");

@@ -11,9 +11,10 @@ public class Pagination implements Proxy {
 
 	private int pageNum, totalCount, 
 				startRow, endRow,
-				startPage, endPage, 
+				startPage, endPage, nowPage,
 				pageSize, displayPageNum, 
-				blockSize;
+				nextBlock, prevBlock;
+
 	private boolean prev, next;
 
 	@Override
@@ -31,32 +32,33 @@ public class Pagination implements Proxy {
 		pageSize = (_pageSize == null) ? 10 : Integer.parseInt(_pageSize);		
 		System.out.println("page size : "+pageSize);
 
-		displayPageNum = 10;	
+		displayPageNum = 4;	
 
 		totalCount = CustomersServiceImpl.getInstance().countEmpCustomer(null);
 		System.out.println("total count : "+totalCount);
 	
-//		startPage = ((pageNum - 1) * pageSize) + 1; ASC
-		startRow = totalCount - (pageNum * pageSize) + 1; //DESC
-		
-//		endPage = (totalCount < pageNum * pageSize) ? totalCount : pageNum * pageSize; ASC
-		endRow =  startRow + (pageSize - 1); //DESC
+//		startPage = ((pageNum - 1) * pageSize) + 1;											//ASC
+//		endPage = (totalCount < pageNum * pageSize) ? totalCount : pageNum * pageSize;		//ASC
+		startRow = (startRow < 0) ? 1 : totalCount - (pageNum * pageSize) + 1;	//DESC and prevent (-n) row start
+		endRow =  startRow + (pageSize - 1);					//DESC
 
-		startRow = (startRow < 0) ? 1 : startRow;
-		
-		endPage = (int) (pageNum / (double) displayPageNum) * (displayPageNum);
+		nowPage = pageNum;
+		endPage = (int) (Math.ceil(nowPage / (double)displayPageNum) * displayPageNum);
 		startPage = (endPage - displayPageNum) + 1;
+		
+		System.out.println("start Page: "+startPage+"    end Page: "+endPage);
 		
 		int tempEndPage = (int) (Math.ceil(totalCount / (double) pageSize));
 		System.out.println(" Page Count : "+tempEndPage);
 		
-		if (pageNum > tempEndPage || pageNum < 0) {
-			pageNum = 1;
-			}  
+		if (endPage > tempEndPage) {
+			endPage = tempEndPage;
+		}
+		
+		prevBlock = startPage - displayPageNum; 
+		nextBlock = startPage + displayPageNum;
 		
 		prev = startPage == 1 ? false : true;
-		next = endPage * pageSize >= totalCount ? false : true;
-
+		next = endPage == tempEndPage ? false : true; //endPage * pageSize >= totalCount ? false : true;
 	}
-
 }

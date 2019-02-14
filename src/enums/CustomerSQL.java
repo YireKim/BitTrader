@@ -2,7 +2,7 @@ package enums;
 
 public enum CustomerSQL {
 
-	SIGNUP, SIGNIN, LIST, ROW_COUNT;
+	SIGNUP, SIGNIN, LIST, ROW_COUNT, PHONE_NUM;
 	
 	@Override
 	public String toString() {
@@ -42,6 +42,10 @@ public enum CustomerSQL {
 		case ROW_COUNT:
 			System.out.println(" SQL Count in ");
 			query.append("SELECT COUNT(*) AS TOTALCOUNT FROM CUSTOMERS");
+			break;
+			
+		case PHONE_NUM:
+			query.append("SELECT CUSTOMER_ID, CONTACT_NAME, PHONE FROM CUSTOMERS");
 			break;
 			
 		default:

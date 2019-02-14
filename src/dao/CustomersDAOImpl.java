@@ -4,7 +4,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import domain.CustomersDTO;
 import enums.CustomerSQL;
@@ -28,7 +30,9 @@ public class CustomersDAOImpl implements CustomersDAO {
 	@Override
 	public void insertCustomer(CustomersDTO cust) {
 		try {
-			PreparedStatement ps = DatabaseFactory.createDatabase(Vendor.ORACLE).getConnection()
+			PreparedStatement ps = DatabaseFactory
+					.createDatabase(Vendor.ORACLE)
+					.getConnection()
 					.prepareStatement(CustomerSQL.SIGNUP.toString());
 
 			ps.setString(1, cust.getContactName());
@@ -57,7 +61,7 @@ public class CustomersDAOImpl implements CustomersDAO {
 					.getConnection()
 					.prepareStatement(CustomerSQL.LIST.toString());
 
-			System.out.println("===== CustomerDAOimpl : IN >> Start "+page.getStartPage()+"   End "+page.getEndPage());
+			System.out.println("===== CustomerDAOimpl : IN >> Start "+page.getStartRow()+"   End "+page.getEndRow());
 			
 			String startRow = String.valueOf(page.getStartRow());
 			String endRow = String.valueOf(page.getEndRow());
@@ -182,5 +186,32 @@ public class CustomersDAOImpl implements CustomersDAO {
 	public void deleteCustomer(CustomersDTO cust) {
 
 	}
+	
+	@Override
+	public Map<String, Object> selectPhoneNum(Proxy pxy) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		try {
+			PreparedStatement ps = DatabaseFactory
+					.createDatabase(Vendor.ORACLE)
+					.getConnection()
+					.prepareStatement(CustomerSQL.PHONE_NUM.toString());
 
+			ResultSet rs = ps.executeQuery();
+			
+			CustomersDTO cust = null;
+			
+			while (rs.next()) {
+				cust = new CustomersDTO();
+				String entry = rs.getString("CUSTOMER_ID");
+				cust.setCustomerId(rs.getString("CUSTOMER_ID"));
+				cust.setContactName(rs.getString("CONTACT_NAME"));
+				cust.setPhone(rs.getString("PHONE"));
+				map.put(entry, cust);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return map;
+	}
 }
