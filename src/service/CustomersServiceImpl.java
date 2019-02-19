@@ -10,7 +10,9 @@ import proxy.Proxy;
 public class CustomersServiceImpl implements CustomersService {
 
 	private static CustomersServiceImpl instance = new CustomersServiceImpl();
-
+	
+	CustomersDAOImpl dao;
+	
 	private CustomersServiceImpl() {
 		dao = CustomersDAOImpl.getInstance();
 	}
@@ -18,8 +20,6 @@ public class CustomersServiceImpl implements CustomersService {
 	public static CustomersServiceImpl getInstance() {
 		return instance;
 	}
-
-	CustomersDAOImpl dao;
 
 	@Override
 	public void addCustomer(CustomersDTO cust) {
@@ -32,8 +32,8 @@ public class CustomersServiceImpl implements CustomersService {
 	}
 
 	@Override
-	public List<CustomersDTO> retrieveOneOfCustomers(CustomersDTO cust) {
-		return dao.selectOneOfCustomers(cust);
+	public List<CustomersDTO> retrieveSomeOfCustomers(CustomersDTO cust) {
+		return dao.selectSomeOfCustomers(cust);
 	}
 
 	@Override
@@ -57,6 +57,10 @@ public class CustomersServiceImpl implements CustomersService {
 	}
 
 	@Override
+	public void fileUpload(Proxy pxy) {
+		dao.updateImage(pxy);
+	}
+	@Override
 	public void removceCustomer(CustomersDTO cust) {
 		dao.deleteCustomer(cust);
 	}
@@ -65,5 +69,6 @@ public class CustomersServiceImpl implements CustomersService {
 	public Map<String, Object> retrievePhoneNum(Proxy pxy) {
 		return dao.selectPhoneNum(pxy);
 	}
+
 
 }

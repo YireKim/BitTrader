@@ -21,10 +21,10 @@ public class Receiver {
 		RequestProxy requestProxy = new RequestProxy();
 		ResponseProxy responseProxy = new ResponseProxy();
 		
-		Map<String,Proxy> pxymap = new HashMap<>();
-		
 		requestProxy.carryOut(request);
 		responseProxy.carryOut(response);
+		
+		Map<String,Proxy> pxymap = new HashMap<>();
 		
 		pxymap.put("requestProxy", requestProxy);
 		pxymap.put("responseProxy", responseProxy);

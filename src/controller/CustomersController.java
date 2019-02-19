@@ -18,7 +18,8 @@ public class CustomersController extends HttpServlet {
 	protected void service(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		
-		System.out.println("=== Customer Controller");
+		System.out.println("=-= [ 2 Customer controller] ");
+		
 		Receiver.init(request, response); 
 		
 		Carrier.forward(request, response);

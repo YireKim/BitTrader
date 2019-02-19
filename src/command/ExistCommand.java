@@ -19,7 +19,6 @@ import service.EmployeesServiceImpl;
 public class ExistCommand extends Command {
 
 	public ExistCommand(Map<String,Proxy> pxy) {
-		
 		super(pxy);
 		
 		System.out.println("=-= [ 4 Exist Command ]");
@@ -63,7 +62,6 @@ public class ExistCommand extends Command {
 				super.execute();
 			}
 			break;
-
 		case SIGNIN:
 			CustomersDTO cust = new CustomersDTO();
 
@@ -82,6 +80,7 @@ public class ExistCommand extends Command {
 				super.execute();
 			}
 			break;
+			
 			
 		default:
 			break;

@@ -20,16 +20,22 @@ public class HomeController extends HttpServlet {
 		session.setAttribute("ctx", request.getContextPath());
 		session.setAttribute("css", session.getAttribute("ctx") + "/resources/css/");
 		session.setAttribute("js", session.getAttribute("ctx") + "/resources/js/");
+		session.setAttribute("img", session.getAttribute("ctx") + "/resources/img/");
+		
+		System.out.println("==============Home Controller "
+				+ "\n=====ctx: "+ session.getAttribute("ctx")
+				+ "\n====css: "+ session.getAttribute("css")
+				+ "\n=====js: " + session.getAttribute("js")
+				+ "\n=====img: " + session.getAttribute("img")
+				+ "\n=====employee: " + session.getAttribute("employee"));
 
+		
 		if (session.getAttribute("employee") == null) {
 			request.setAttribute("compo", "register");
 		} else {
 			request.setAttribute("compo", "access");
 		}
-		System.out.println("Home Controller =====ctx: " + session.getAttribute("ctx") + "    " + "====css: "
-				+ session.getAttribute("css") + "    " + "=====js: " + session.getAttribute("js") + "    "
-				+ "=====employee: " + session.getAttribute("employee"));
-
+		
 		request.getRequestDispatcher("/WEB-INF/view/home/main.jsp").forward(request, response);
 	}
 

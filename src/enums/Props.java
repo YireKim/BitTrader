@@ -1,10 +1,12 @@
 package enums;
 
+
 public enum Props {
 	ORA_DRIVER("oracle.jdbc.OracleDriver"), 
 	ORA_URL("jdbc:oracle:thin:@localhost:59162:xe"), 
-	ORA_USER("eli"), 
-	ORA_PASS("2213");
+	ORA_USER("eli"),
+	ORA_PASS("2213"),
+	IMAGE("/Users/yireeli/eclipse/java/BitTrader/WebContent/resources/img/");
 	
 	private String value;
 	

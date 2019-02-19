@@ -18,6 +18,8 @@ public class Commander {
 		RequestProxy requestProxy = (RequestProxy) pxy.get("requestProxy");
 		HttpServletRequest request = requestProxy.getRequest();
 		
+		System.out.println("-  - - 3 Commander IN CMD :::: "+request.getParameter("cmd"));
+		
 		switch (Action.valueOf(request.getParameter("cmd").toUpperCase())) {
 			case MOVE:
 				System.out.println("  3 Commander C MOVE cmd : "+Action.valueOf(request.getParameter("cmd").toUpperCase()));
@@ -30,15 +32,27 @@ public class Commander {
 				break;
 				
 			case ACCESS: case SIGNIN:
-				System.out.println("  3 Commander C EXIST cmd : "+Action.valueOf(request.getParameter("cmd").toUpperCase()));
+				System.out.println("  3 Commander C ACCESS cmd : "+Action.valueOf(request.getParameter("cmd").toUpperCase()));
 				cmd = new ExistCommand(pxy);
 				break;
 				
 			case LIST:
-				System.out.println("  3 Commander C EXIST cmd : "+Action.valueOf(request.getParameter("cmd").toUpperCase()));
+				System.out.println("  3 Commander C LIST cmd : "+Action.valueOf(request.getParameter("cmd").toUpperCase()));
 				cmd = new ListCommand(pxy);
 				break;
 				
+			case CUST_RETRIEVE:
+				cmd = new RetrieveCommand(pxy);
+				break;
+				
+			case CUST_UPDATE_PAGE:
+				cmd = new UpdateCommand(pxy);
+				break;
+				
+			case CUST_FILE_UPLOAD:
+				System.out.println("  3 Commander C CUST_FILE_UPLOAD cmd : "+Action.valueOf(request.getParameter("cmd").toUpperCase()));
+				cmd = new FileCommand(pxy);
+				break;
 		}
 		return cmd;
 	}

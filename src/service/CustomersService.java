@@ -13,7 +13,7 @@ public interface CustomersService {
 	
 	// READ
 	public List<CustomersDTO> retrieveListOfCustomers(Proxy pxy);
-	public List<CustomersDTO> retrieveOneOfCustomers(CustomersDTO cust);
+	public List<CustomersDTO> retrieveSomeOfCustomers(CustomersDTO cust);
 	public CustomersDTO retrieveAnCustomer(CustomersDTO cust);
 	public int countEmpCustomer(Proxy pxy);
 	public boolean existCustomer(CustomersDTO cust);
@@ -25,4 +25,5 @@ public interface CustomersService {
 	public void removceCustomer(CustomersDTO cust);
 	
 	public Map<String,Object> retrievePhoneNum(Proxy pxy);
+	public void fileUpload(Proxy pxy);
 }

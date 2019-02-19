@@ -1,8 +1,6 @@
-/command/
-/proxy/
-/dao/
-/domain/
-/service/
 /enums/
 /controller/
-/iterator/
+/proxy/
+/command/
+/service/
+/dao/

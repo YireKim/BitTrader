@@ -1,5 +1,6 @@
 package dao;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -9,18 +10,24 @@ import java.util.List;
 import java.util.Map;
 
 import domain.CustomersDTO;
+import domain.ImageDTO;
 import enums.CustomerSQL;
 import enums.Vendor;
 import factory.DatabaseFactory;
+import proxy.ImageProxy;
 import proxy.PageProxy;
 import proxy.Pagination;
 import proxy.Proxy;
+import proxy.RequestProxy;
 
 public class CustomersDAOImpl implements CustomersDAO {
 
 	private static CustomersDAOImpl instance = new CustomersDAOImpl();
-
+	Connection conn;
 	private CustomersDAOImpl() {
+		conn = DatabaseFactory
+				.createDatabase(Vendor.ORACLE)
+				.getConnection();
 	}
 
 	public static CustomersDAOImpl getInstance() {
@@ -95,19 +102,31 @@ public class CustomersDAOImpl implements CustomersDAO {
 	}
 
 	@Override
-	public List<CustomersDTO> selectOneOfCustomers(CustomersDTO cust) {
-		return null;
+	public List<CustomersDTO> selectSomeOfCustomers(CustomersDTO cust) {
+		List<CustomersDTO> list = new ArrayList<>();
+		
+		
+				return list;
 	}
 
 	@Override
 	public CustomersDTO selectAnCustomer(CustomersDTO cust) {
 		CustomersDTO temp = null;
+		PreparedStatement ps = null;
 		try {
-			PreparedStatement ps = DatabaseFactory.createDatabase(Vendor.ORACLE).getConnection()
-					.prepareStatement(CustomerSQL.SIGNIN.toString());
+			
+			if (cust.getPassword() == null) {
+				ps = DatabaseFactory.createDatabase(Vendor.ORACLE).getConnection()
+						.prepareStatement(CustomerSQL.CHK_CUSTID.toString());
+				ps.setString(1, cust.getCustomerId());
+					
+			} else {
+				ps = DatabaseFactory.createDatabase(Vendor.ORACLE).getConnection()
+						.prepareStatement(CustomerSQL.SIGNIN.toString());
+				ps.setString(1, cust.getCustomerId());
+				ps.setString(2, cust.getPassword());
+			}
 
-			ps.setString(1, cust.getCustomerId());
-			ps.setString(2, cust.getPassword());
 
 			ResultSet rs = ps.executeQuery();
 
@@ -179,7 +198,24 @@ public class CustomersDAOImpl implements CustomersDAO {
 
 	@Override
 	public void updateCustomer(CustomersDTO cust) {
+		try {
+			PreparedStatement ps = DatabaseFactory
+					.createDatabase(Vendor.ORACLE)
+					.getConnection()
+					.prepareStatement(CustomerSQL.UPDATE.toString());
 
+			ps.setString(1, cust.getPassword());
+			ps.setString(2, cust.getSsn());
+			ps.setString(3, cust.getPhone());
+			ps.setString(4, cust.getAddress());
+			ps.setString(5, cust.getCity());
+			ps.setString(6, cust.getCountry());
+			ps.setString(7, cust.getCustomerId());
+			ps.executeQuery();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
 
 	@Override
@@ -209,9 +245,44 @@ public class CustomersDAOImpl implements CustomersDAO {
 				map.put(entry, cust);
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return map;
+	}
+
+	public CustomersDTO selectProfile(Proxy pxy) {
+		CustomersDTO cust = new CustomersDTO();
+		try {
+			String sql = "";
+			ImageProxy imgpxy = (ImageProxy) pxy;
+			
+			PreparedStatement ps = conn.prepareStatement(sql);
+			ps.setString(1, "");
+			
+			ResultSet rs = ps.executeQuery();
+			
+			ImageDAOImpl.getInstance().insertImage(((ImageProxy)pxy).getImg());
+			
+			sql = "UPDATE CUSTOMERS SET PHOTO = ? WHERE CUSTOMER_ID LIKE ?";
+			ps = conn.prepareStatement(sql);
+			ps.setString(1, "");
+			ps.setString(2, imgpxy.getImg().getImgOwner());
+			
+			cust.setCustomerId(imgpxy.getImg().getImgOwner());
+			cust = selectAnCustomer(cust);
+			
+			String imgSeq = ImageDAOImpl.getInstance().recentImageSeq();
+			
+		} catch (SQLException e) {
+			
+			e.printStackTrace();
+		}
+		return cust;
+		
+	}
+
+	public void updateImage(Proxy pxy) {
+		// TODO Auto-generated method stub
+		
 	}
 }

@@ -15,7 +15,7 @@ import service.CustomersServiceImpl;
 public class ListCommand extends Command {
 
 	public ListCommand(Map<String,Proxy> pxy) {
-		super(pxy);
+super(pxy);
 		
 		System.out.println("=-= [ List Command ]");
 		

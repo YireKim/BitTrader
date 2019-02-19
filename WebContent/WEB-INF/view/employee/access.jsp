@@ -22,9 +22,9 @@
 <form id="accessform">
 <div class="access-form">
   <div>Employee ID</div>
-  <div><input type="text" name="employee_id" id="empid"/></div>
+  <div><input type="text" name="employee_id" id="empid" value="1000"/></div>
   <div>Employee NAME</div>  
-  <div><input type="text" name="employee_name" id="empname"/>
+  <div><input type="text" name="employee_name" id="empname" value="SULMIN"/>
        <input type="hidden" name="cmd" value="access" />
        <input type="hidden" name="dir" value="customer" />
 	   <input type="hidden" name="page" value="list" />
@@ -49,10 +49,7 @@
 	} else if (empname === ''){
 		alert('Must insert employee name');
 	} else {
-		alert('Moving..');
-		$('#accessform')
-		.attr('page2', '${ctx}/employee.do')
-		.submit();
+		$('#accessform').attr('action', '${ctx}/employee.do').submit();
 		
 	}
 	

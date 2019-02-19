@@ -5,7 +5,7 @@
 <jsp:include page="../home/head.jsp" />
 
 <style>
-.table1 {
+.table {
 	font-family: arial, sans-serif;
 	border-collapse: collapse;
 	padding: 8px 8px;
@@ -14,13 +14,13 @@
 	margin-right: 200px;
 }
 
-.table1 td, th {
+.table td, th {
 	border: 1px solid #dddddd;
 	text-align: left;
 	padding: 8px;
 }
 
-.table1 tr:nth-child(even) {
+.table tr:nth-child(even) {
 	background-color: #eeeeee;
 }
 
@@ -49,7 +49,7 @@
 }
 </style>
 
-<div class="table1">
+<div class="table">
 	<table>
 		<tr>
 			<th>NO.</th>
@@ -67,7 +67,7 @@
 			<tr>
 				<td>${ cust.no }</td>
 				<td>${ cust.customerId }</td>
-				<th>${ cust.contactName }</th>
+				<th><a href="${ctx}/customer.do?cmd=cust_retrieve&page=detail&customer_id=${ cust.customerId }">${ cust.contactName }</a></th>
 				<th>${ cust.ssn }</th>
 				<th>${ cust.phone }</th>
 				<th>${ cust.address }</th>
@@ -79,53 +79,28 @@
 	</table>
 </div>
 
-
-<%-- <div class="pagination">
-	<a href="#">&lt;</a>
-	<c:forEach begin="1" end="5" varStatus="status">
-		<a href="#" id="page_${ status.count }">${ status.count }</a>
-	</c:forEach>
-	<a href="#">&gt;</a>
-</div> --%>
-
-
-<%-- <div class="pagination" style="margin-left: 200px">
-
-<c:url var="action" value="/customer.do?&cmd=list&page=list"/>
-<a href="javascript:PageMove(${pagination.prev})">&lt;</a>
-<c:if test="${param.prev}">
-    <a href="${action}?page_num=${param.beginPage-1}">prev</a>
-</c:if>
-<c:forEach begin="${param.startPage}" end="${param.endPage}" step="1" var="index">
-    <c:choose>
-        <c:when test="${param.page_num==index}">
-            ${index}
-        </c:when>
-        <c:otherwise>
-            <a href="${action}?page=${index}">${index}</a>
-        </c:otherwise>
-    </c:choose>
-</c:forEach>
-<c:if test="${param.next}">
-    <a href="${action}?page=${param.endPage+1}">next</a>
-</c:if>
-</div> --%>
-
 <div class="pagination">
 <c:choose>
 	<c:when test="${pagination.prev}">
-	<a href="#" class="prev">&laquo;</a>
+	<a href="${ctx}/customer.do?cmd=list&page=list&page_num=${pagination.prevBlock}" class="prev">&laquo;</a>
 	</c:when>
 	<c:otherwise>
 	<a href="#" class="prev_x">X</a>
 	</c:otherwise>
 </c:choose>
 		<c:forEach begin="${pagination.startPage}" end="${pagination.endPage}" varStatus="status">
+<c:choose>
+	<c:when test="${ pagination.pageNum eq status.index }">
+    	<a href="#" class="page active">${status.index}</a>
+	</c:when>
+	<c:otherwise>
     	<a href="#" class="page">${status.index}</a>
+	</c:otherwise>
+</c:choose>
 		</c:forEach>
 <c:choose>
 	<c:when test="${pagination.next}">
-	<a href="#" class="next">&raquo;</a>
+	<a href="${ctx}/customer.do?cmd=list&page=list&page_num=${pagination.nextBlock}" class="next">&raquo;</a>
 	</c:when>
 	<c:otherwise>
 	<a href="#" class="next_x">X</a>
@@ -139,11 +114,5 @@
 <script>
 $('.page' ).click(function() {
 	location.assign('${ctx}/customer.do?cmd=list&page=list&page_num='+$(this).text());
-});
-$('.prev' ).click(function() {
-	location.assign('${ctx}/customer.do?cmd=list&page=list&page_num='+${pagination.prevBlock});
-});
-$('.next' ).click(function() {
-	location.assign('${ctx}/customer.do?cmd=list&page=list&page_num='+${pagination.nextBlock});
 });
 </script>

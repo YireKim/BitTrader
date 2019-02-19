@@ -13,13 +13,14 @@ public interface CustomersDAO {
 	
 	// READ
 	public List<CustomersDTO> selectListOfCustomers(Proxy pxy);
-	public List<CustomersDTO> selectOneOfCustomers(CustomersDTO cust);
+	public List<CustomersDTO> selectSomeOfCustomers(CustomersDTO cust);
 	public CustomersDTO selectAnCustomer(CustomersDTO cust);
 	public int countCustomers(Proxy pxy);
 	public boolean existCustomerId(CustomersDTO cust);
 	
 	// UPDATE
 	public void updateCustomer(CustomersDTO cust);
+	public CustomersDTO selectProfile(Proxy pxy);
 	
 	// DELETE
 	public void deleteCustomer(CustomersDTO cust);
