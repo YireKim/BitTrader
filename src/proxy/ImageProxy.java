@@ -25,11 +25,9 @@ public class ImageProxy implements Proxy {
 		
 		System.out.println("=-=- [ Image proxy --1--]");
 		
-		
 		HttpServletRequest request = (HttpServletRequest) o;
 
-		
-		
+		System.out.println();
 		if(!ServletFileUpload.isMultipartContent(request)) {
 			System.out.println("@@@ File comm = No file exist/No Multipart request");
 			return;
@@ -51,7 +49,8 @@ public class ImageProxy implements Proxy {
 				FileItem item = iter.next();
 				if(!item.isFormField()) {
 					String fileName = item.getName();
-					System.out.println("====* FILE NAME ::: "+fileName);
+					
+					System.out.println("@@@ Img Pxy IMAGE path GetValue :: "+Props.IMAGE.getValue()+fileName);
 				    file = new File(Props.IMAGE.getValue()+fileName);
 					item.write(file);
 					
@@ -63,7 +62,8 @@ public class ImageProxy implements Proxy {
 					System.out.println("File Extention : "+fileName.substring(fileName.indexOf(".")+1));
 					
 					img.setImgOwner(request.getParameter("customer_id"));
-					//Easiest insert DB code....he said..
+					
+					System.out.println("Img Pxy ::::: "+img.getImgSeq()+" "+img.getImgOwner()+" "+img.getImgName());
 				}	
 			}
 		} catch (Exception e) {

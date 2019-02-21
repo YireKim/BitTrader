@@ -53,6 +53,8 @@ public class ExistCommand extends Command {
 
 				request.setAttribute("list", list);
 				request.setAttribute("pagination", paging);
+				
+				
 
 				System.out.println(" List size : "+list.size());
 			} else {

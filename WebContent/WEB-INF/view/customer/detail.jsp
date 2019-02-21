@@ -11,26 +11,25 @@
 }
 .wrapper {
   display: grid;
-  grid-template-columns: repeat(8, 1fr);
+  grid-template-columns: repeat(12, 1fr);
   grid-gap: 8px;
   grid-auto-rows: minmax(100px, auto);
 }
 .profile_pic {
-	grid-column: 2;
+	grid-column: 4 / 10;
+	grid-row: 1;
+}
+.profile_tag {
+	grid-column: 5;
 	grid-row: 2;
 }
-
-.profile_tag {
-	grid-column: 2;
-	grid-row: 3 / 4;
-}
 .profile_info {
-	grid-column: 3 / 7;
-	grid-row: 3 / 4;
+	grid-column: 6 / 9;
+	grid-row: 2;
 }
 .lavels {
-	grid-column: 3;
-	grid-row: 4;
+	grid-column: 6 / 8;
+	grid-row: 3;
 }
 
 </style>
@@ -38,8 +37,7 @@
 
 <div class="wrapper">
 	<div class="profile_pic">
-		<img src="${img}/${image.imgName}.${image.imgExtention}" alt="default_profile" class=".img-responsive">
-		
+		<img src="${imgpath}${image.imgName}.${image.imgExtention}" style="width: 100%">
 		</div>
 	<div class="profile_tag">
 		<div>ID</div>
@@ -49,6 +47,7 @@
 		<div>ADDRESS</div>
 		<div>CITY</div>
 		<div>COUNTRY</div>
+		<div>PHOTO</div>
 	</div>
 	<div class="profile_info">
 		${ customer.customerId} <br />
@@ -58,6 +57,7 @@
 		${ customer.address } <br />
 		${ customer.city } <br />
 		${ customer.country } <br />
+		${ customer.photo } <br />
 		</div>
 		<div class="lavels">
 		<span class="label label-warning" id="update-profile-btn">UPDATE</span>
@@ -69,17 +69,15 @@
 
 <script>
 $('#update-profile-btn').click(function() {
-	alert('detail..');
-	location.assign('${ctx}/customer.do?cmd=cust_retrieve&page=update&customer_id='+${ customer.customerId });
+	location.assign('${ctx}/customer.do?cmd=cust_retrieve&page=update&customer_id=${ customer.customerId }');
 });
 $('#upload_btn').click(function() {
 	alert('file upload..');
-	$('#file_form')
-		.attr('action', '${ctx}/customer.do')
+		$('#file_form')
 		.attr('method', 'post')
+		.attr('action', '${ctx}/customer.do')
 		.attr('enctype', 'multipart/form-data')
 		.submit();
 });
 </script>
-
 

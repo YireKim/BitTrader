@@ -18,7 +18,6 @@ import proxy.ImageProxy;
 import proxy.PageProxy;
 import proxy.Pagination;
 import proxy.Proxy;
-import proxy.RequestProxy;
 
 public class CustomersDAOImpl implements CustomersDAO {
 
@@ -114,7 +113,6 @@ public class CustomersDAOImpl implements CustomersDAO {
 		CustomersDTO temp = null;
 		PreparedStatement ps = null;
 		try {
-			
 			if (cust.getPassword() == null) {
 				ps = DatabaseFactory.createDatabase(Vendor.ORACLE).getConnection()
 						.prepareStatement(CustomerSQL.CHK_CUSTID.toString());
@@ -126,7 +124,6 @@ public class CustomersDAOImpl implements CustomersDAO {
 				ps.setString(1, cust.getCustomerId());
 				ps.setString(2, cust.getPassword());
 			}
-
 
 			ResultSet rs = ps.executeQuery();
 
@@ -224,25 +221,25 @@ public class CustomersDAOImpl implements CustomersDAO {
 	}
 	
 	@Override
-	public Map<String, Object> selectPhoneNum(Proxy pxy) {
+	public Map<String, Object> selectProfilePic(CustomersDTO cust) {
 		Map<String, Object> map = new HashMap<String, Object>();
+		ImageDTO img = new ImageDTO();
 		try {
 			PreparedStatement ps = DatabaseFactory
 					.createDatabase(Vendor.ORACLE)
 					.getConnection()
-					.prepareStatement(CustomerSQL.PHONE_NUM.toString());
-
+					.prepareStatement(CustomerSQL.SELECT_PIC.toString());
+			
+			ps.setString(1, cust.getCustomerId());
+			System.out.println("@@@@@ Cust DAOImpl  getCustId "+cust.getCustomerId());
 			ResultSet rs = ps.executeQuery();
 			
-			CustomersDTO cust = null;
-			
 			while (rs.next()) {
-				cust = new CustomersDTO();
-				String entry = rs.getString("CUSTOMER_ID");
-				cust.setCustomerId(rs.getString("CUSTOMER_ID"));
-				cust.setContactName(rs.getString("CONTACT_NAME"));
-				cust.setPhone(rs.getString("PHONE"));
-				map.put(entry, cust);
+				img.setImgSeq(rs.getString("IMAGE_ID"));
+				img.setImgName(rs.getString("IMAGE_NAME"));
+				img.setImgExtention(rs.getString("IMAGE_EXTENTION"));
+				img.setImgOwner(rs.getString("IMAGE_OWNER"));
+				map.put("imagekey", img);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -250,39 +247,63 @@ public class CustomersDAOImpl implements CustomersDAO {
 		return map;
 	}
 
-	public CustomersDTO selectProfile(Proxy pxy) {
+	public Map<String, Object> selectProfile(Proxy pxy) {
+		Map<String, Object> map = new HashMap<String, Object>();
 		CustomersDTO cust = new CustomersDTO();
+		ImageDTO img = new ImageDTO();
 		try {
-			String sql = "";
 			ImageProxy imgpxy = (ImageProxy) pxy;
 			
-			PreparedStatement ps = conn.prepareStatement(sql);
-			ps.setString(1, "");
+			//insert image to DB
+			ImageDAOImpl.getInstance().insertImage(imgpxy.getImg());
 			
-			ResultSet rs = ps.executeQuery();
+			//pick the last one
+			String imgSeq = ImageDAOImpl.getInstance().recentImageSeq();
 			
-			ImageDAOImpl.getInstance().insertImage(((ImageProxy)pxy).getImg());
+			//change photo value
+			String custId = imgpxy.getImg().getImgOwner();
+			PreparedStatement ps = conn.prepareStatement(CustomerSQL.CHANGE_PROFILE.toString());
+			ps.setString(1, imgSeq);
+			ps.setString(2, custId);
 			
-			sql = "UPDATE CUSTOMERS SET PHOTO = ? WHERE CUSTOMER_ID LIKE ?";
-			ps = conn.prepareStatement(sql);
-			ps.setString(1, "");
-			ps.setString(2, imgpxy.getImg().getImgOwner());
+			ps.executeUpdate();
 			
-			cust.setCustomerId(imgpxy.getImg().getImgOwner());
+			cust.setCustomerId(custId);
 			cust = selectAnCustomer(cust);
 			
-			String imgSeq = ImageDAOImpl.getInstance().recentImageSeq();
+			img.setImgSeq(imgSeq);
+			img = ImageDAOImpl
+					.getInstance()
+					.selectAnImage(imgpxy.getImg());
+			
+			System.out.println("@@@ CustDAOImpl SelecProfile:    cust == "+cust);
+			System.out.println("@@@ CustDAOImpl SelecProfile:     img == "+img);
+			
+			map.put("customerkey", cust);
+			map.put("imagekey", img);
 			
 		} catch (SQLException e) {
 			
 			e.printStackTrace();
 		}
-		return cust;
-		
+		return map;
 	}
+		
 
 	public void updateImage(Proxy pxy) {
-		// TODO Auto-generated method stub
-		
+		try {
+			PreparedStatement ps = DatabaseFactory
+					.createDatabase(Vendor.ORACLE)
+					.getConnection()
+					.prepareStatement(CustomerSQL.FILE_UPLOAD.toString());
+
+			ps.setString(1, "");
+
+			ps.executeQuery();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
+
 }

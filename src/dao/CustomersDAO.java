@@ -15,16 +15,17 @@ public interface CustomersDAO {
 	public List<CustomersDTO> selectListOfCustomers(Proxy pxy);
 	public List<CustomersDTO> selectSomeOfCustomers(CustomersDTO cust);
 	public CustomersDTO selectAnCustomer(CustomersDTO cust);
+	public Map<String, Object> selectProfilePic(CustomersDTO cust);
 	public int countCustomers(Proxy pxy);
 	public boolean existCustomerId(CustomersDTO cust);
 	
 	// UPDATE
 	public void updateCustomer(CustomersDTO cust);
-	public CustomersDTO selectProfile(Proxy pxy);
+	public Map<String, Object> selectProfile(Proxy pxy);
 	
 	// DELETE
 	public void deleteCustomer(CustomersDTO cust);
 
-	public Map<String, Object> selectPhoneNum(Proxy pxy);
+
 	
 }

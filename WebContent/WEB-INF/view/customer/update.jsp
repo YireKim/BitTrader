@@ -12,48 +12,41 @@
 }
 .wrapper {
   display: grid;
-  grid-template-columns: repeat(8, 1fr);
+  grid-template-columns: repeat(12, 1fr);
   grid-gap: 8px;
   grid-auto-rows: minmax(100px, auto);
 }
 .profile_pic {
-	grid-column: 2;
-	grid-row: 2;
+	grid-column: 4 / 10;
+	grid-row: 1;
 }
 .profile_tag {
-	grid-column: 2;
-	grid-row: 4;
+	grid-column: 5;
+	grid-row: 2;
 }
 .profile_info {
-	grid-column: 3 / 5;
-	grid-row: 4;
+	grid-column: 6 / 9;
+	grid-row: 2;
 }
 .lavels {
-	grid-column: 3 / 5;
-	grid-row: 5;
-}
-.lavels2 {
-	grid-column: 2;
+	grid-column: 6 / 8;
 	grid-row: 3;
-
 }
-
 </style>
 
 <div class="wrapper">
 <div class="profile_pic">
 
-<form id="form">
-		<img src="${img}${image.imgName}.${image.imgExtention}" style="height: 200px; width: 150px;"/>
-		<input type="file" name="file_upload"  />
-        <input type="submit" id="file_upload_btn" />
-        <!-- <input type="hidden" name="cmd" value="cust_file_upload" /> -->
-</form>
-		</div>
-
+	<form id="form">
+		<img src="${imgpath}${image.imgName}.${image.imgExtention}" style="width: 100%; ">
+       	<input type="file" name="file_upload" />
+		<input type="submit" id="file_upload_btn" />
+	</form>
+</div>
 	<div class="profile_tag">
 		<div>ID</div>
 		<div>NAME</div>
+		<div>PHOTO</div>
 		<div>PASSWORD</div>
 		<div>SSN</div>
 		<div>PHONE</div>
@@ -64,6 +57,7 @@
 	<div class="profile_info">
 		<div>${ customer.customerId}</div>
 		<div>${ customer.contactName}</div>
+		<div>${ customer.photo}</div>
 <form id="cust_update_form">
 		<div><input type="text" name="password" placeholder="${ customer.password}"/></div>		
 		<div><input type="text" name="ssn" placeholder="${ customer.ssn}"/></div>
@@ -71,19 +65,15 @@
 		<div><input type="text" name="address" placeholder="${ customer.address}"/></div>
 		<div><input type="text" name="city" placeholder="${ customer.city}"/></div>
 		<div><input type="text" name="country" placeholder="${ customer.country}"/></div>
-		<input type="hidden" id="customer_id" name="customer_id" value="${ customer.customerId }"/>
+		<input type="hidden" name="customer_id" value="${ customer.customerId }"/>
 		<input type="hidden" name="cmd" value="cust_update_page" />
         <input type="hidden" name="dir" value="customer" />
 	    <input type="hidden" name="page" value="detail" />
 </form>
 	</div>
-		
-	<div class="lavels2">
-		
-	</div>
 	<div class="lavels">
-		<span class="label label-success" id="confirm-btn">CONFIRM</span>
-		<span class="label label-danger" id="cancle-btn">CANCLE</span>
+		<span class="label label-success" id="confirm_btn">CONFIRM</span>
+		<span class="label label-danger" id="cancle_btn">CANCLE</span>
 	</div>
 </div>
 
@@ -93,13 +83,12 @@
 $('#cancle-btn').click(function() {
 	alert('cancel..');
 });
-$('#file_upload_btn')
-.click(function(){
-    $('#form')
-    .attr('method','post')
-    .attr('action','${ctx}/customer.do?cmd=cust_file_upload&page=detail&customer_id='+${ customer.customerId})
-    .attr('enctype','multipart/form-data')
-    .submit();
+$('#file_upload_btn').attr('style','cursor:pointer').click(function(){
+	$('#form')
+	.attr('method','post')
+	.attr('action','${ctx}/customer.do?cmd=cust_file_upload&page=detail&&customer_id=${customer.customerId}')
+	.attr('enctype','multipart/form-data')
+	.submit();
 });
 $('#confirm-btn').click(function() {
 	alert('Update..');

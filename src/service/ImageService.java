@@ -21,10 +21,10 @@ public interface ImageService {
 	public boolean existImage(ImageDTO img);
 	
 	// UPDATE
-	public void modifyImage(ImageDTO img);
+	public void modifyImage(Proxy pxy);
 	
 	// DELETE
-	public void removceImage(ImageDTO img);
+	public void removceImage(Proxy pxy);
 	
 }
 

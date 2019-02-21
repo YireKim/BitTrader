@@ -2,25 +2,26 @@ package service;
 
 import java.util.List;
 
+import dao.ImageDAOImpl;
 import domain.ImageDTO;
 import proxy.Proxy;
-import sun.security.jca.GetInstance.Instance;
 
 public class ImageServiceImpl implements ImageService{
 
 	private static ImageServiceImpl Instance = new ImageServiceImpl();
-	ImageServiceImpl dao;
+	ImageDAOImpl dao;
 
 	public ImageServiceImpl() {
-		dao = ImageServiceImpl.getInstance();
+		dao = ImageDAOImpl.getInstance();
 	}
 
 	public static ImageServiceImpl getInstance() {
 		return Instance;
 	}
+
 	@Override
 	public void addImage(ImageDTO img) {
-	
+		dao.insertImage(img);
 	}
 
 	@Override
@@ -43,8 +44,7 @@ public class ImageServiceImpl implements ImageService{
 
 	@Override
 	public ImageDTO retrieveAnImage(ImageDTO img) {
-		// TODO Auto-generated method stub
-		return null;
+		return dao.selectAnImage(img);
 	}
 
 	@Override
@@ -60,13 +60,12 @@ public class ImageServiceImpl implements ImageService{
 	}
 
 	@Override
-	public void modifyImage(ImageDTO img) {
-		// TODO Auto-generated method stub
-		
+	public void modifyImage(Proxy pxy) {
+		dao.updateImage(pxy);
 	}
 
 	@Override
-	public void removceImage(ImageDTO img) {
+	public void removceImage(Proxy pxy) {
 		// TODO Auto-generated method stub
 		
 	}

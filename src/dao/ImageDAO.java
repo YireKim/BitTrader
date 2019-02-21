@@ -19,10 +19,10 @@ public interface ImageDAO {
 	public boolean existImageSeq(ImageDTO img);
 	
 	// UPDATE
-	public void updateImage(ImageDTO img);
+	public void updateImage(Proxy pxy);
 	
 	// DELETE
-	public void deleteImage(ImageDTO img);
+	public void deleteImage(Proxy pxy);
 
 }
 

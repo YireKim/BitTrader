@@ -57,8 +57,8 @@ public class CustomersServiceImpl implements CustomersService {
 	}
 
 	@Override
-	public void fileUpload(Proxy pxy) {
-		dao.updateImage(pxy);
+	public Map<String, Object> fileUpload(Proxy pxy) {
+		return dao.selectProfile(pxy);
 	}
 	@Override
 	public void removceCustomer(CustomersDTO cust) {
@@ -66,9 +66,10 @@ public class CustomersServiceImpl implements CustomersService {
 	}
 
 	@Override
-	public Map<String, Object> retrievePhoneNum(Proxy pxy) {
-		return dao.selectPhoneNum(pxy);
+	public Map<String, Object> retrieveProfilePic(CustomersDTO cust) {
+		return dao.selectProfilePic(cust);
 	}
 
+	
 
 }

@@ -6,7 +6,9 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import domain.CustomersDTO;
 import domain.ImageDTO;
+import enums.ImageSQL;
 import enums.Vendor;
 import factory.DatabaseFactory;
 import proxy.Proxy;
@@ -24,20 +26,23 @@ public class ImageDAOImpl implements ImageDAO{
 	
 	@Override
 	public void insertImage(ImageDTO img) {
-		String sql = "";
+		CustomersDTO cust = new CustomersDTO();
 		try {
 			PreparedStatement ps = DatabaseFactory
 					.createDatabase(Vendor.ORACLE)
 					.getConnection()
-					.prepareStatement("");
+					.prepareStatement(ImageSQL.UPLOAD_IMAGE.toString());
+			ps.setString(1, img.getImgName());
+			ps.setString(2, img.getImgExtention());
+			ps.setString(3, img.getImgOwner());
+			ps.executeUpdate();
 			
-			ps.executeQuery();
-			
+			System.out.println("Imge Insert SQL ::: "+img.getImgSeq()+"  "+img.getImgOwner()+"  "+img.getImgName());
+			System.out.println("@@@ IMG insert DAO :: "+img);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
 	}
 
 	@Override
@@ -48,7 +53,7 @@ public class ImageDAOImpl implements ImageDAO{
 			PreparedStatement ps = DatabaseFactory
 					.createDatabase(Vendor.ORACLE)
 					.getConnection()
-					.prepareStatement("");
+					.prepareStatement(ImageSQL.SELECT_IMG.toString());
 			
 			ResultSet rs = ps.executeQuery();
 			while(rs.next()) {
@@ -86,14 +91,20 @@ public class ImageDAOImpl implements ImageDAO{
 	public ImageDTO selectAnImage(ImageDTO img) {
 		ImageDTO temp = null;
 		try {
-			String sql = "";
 			PreparedStatement ps = DatabaseFactory
 					.createDatabase(Vendor.ORACLE)
 					.getConnection()
-					.prepareStatement("");
+					.prepareStatement(ImageSQL.SELECT_IMG.toString());
+			
+			ps.setString(1, img.getImgOwner());
 			
 			ResultSet rs = ps.executeQuery();
 			while(rs.next()) {
+				temp = new ImageDTO();
+				temp.setImgSeq(rs.getString("IMAGE_ID"));
+				temp.setImgName(rs.getString("IMAGE_NAME"));
+				temp.setImgExtention(rs.getString("IMAGE_EXTENTION"));
+				temp.setImgOwner(rs.getString("IMAGE_OWNER"));
 				
 			}
 		} catch (SQLException e) {
@@ -146,7 +157,7 @@ public class ImageDAOImpl implements ImageDAO{
 	}
 
 	@Override
-	public void updateImage(ImageDTO img) {
+	public void updateImage(Proxy pxy) {
 		try {
 			String sql = "";
 			PreparedStatement ps = DatabaseFactory
@@ -165,7 +176,7 @@ public class ImageDAOImpl implements ImageDAO{
 	}
 
 	@Override
-	public void deleteImage(ImageDTO img) {
+	public void deleteImage(Proxy pxy) {
 		try {
 			String sql = "";
 			PreparedStatement ps = DatabaseFactory
@@ -185,7 +196,24 @@ public class ImageDAOImpl implements ImageDAO{
 
 	@Override
 	public String recentImageSeq() {
-		// TODO Auto-generated method stub
-		return null;
+		ImageDTO img = new ImageDTO();
+		String imgSeq = null;
+		try {
+			PreparedStatement ps = DatabaseFactory
+					.createDatabase(Vendor.ORACLE)
+					.getConnection()
+					.prepareStatement(ImageSQL.LAST_IMG_SEQ.toString());
+					
+			ResultSet rs = ps.executeQuery();
+			while(rs.next()) {
+				img.setImgSeq(rs.getString("IMG_SEQ"));
+				imgSeq = img.getImgSeq();
+			}
+		} catch (SQLException e) {
+			
+			e.printStackTrace();
+		}
+		return imgSeq;
+		
 	}
 }

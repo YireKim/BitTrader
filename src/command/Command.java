@@ -1,17 +1,12 @@
 package command;
 
-import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
-import domain.CustomersDTO;
 import lombok.Data;
-import proxy.PageProxy;
-import proxy.Pagination;
 import proxy.Proxy;
 import proxy.RequestProxy;
-import service.CustomersServiceImpl;
 
 @Data
 public class Command implements Order {

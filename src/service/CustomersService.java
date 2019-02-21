@@ -15,6 +15,7 @@ public interface CustomersService {
 	public List<CustomersDTO> retrieveListOfCustomers(Proxy pxy);
 	public List<CustomersDTO> retrieveSomeOfCustomers(CustomersDTO cust);
 	public CustomersDTO retrieveAnCustomer(CustomersDTO cust);
+	public Map<String, Object> retrieveProfilePic(CustomersDTO cust);
 	public int countEmpCustomer(Proxy pxy);
 	public boolean existCustomer(CustomersDTO cust);
 	
@@ -24,6 +25,8 @@ public interface CustomersService {
 	// DELETE
 	public void removceCustomer(CustomersDTO cust);
 	
-	public Map<String,Object> retrievePhoneNum(Proxy pxy);
-	public void fileUpload(Proxy pxy);
+	public Map<String,Object> fileUpload(Proxy pxy);
+
+
+
 }
