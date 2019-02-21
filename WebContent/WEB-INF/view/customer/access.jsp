@@ -22,9 +22,9 @@
 <form id="accessform">
 <div class="access-form">
   <div>Customer ID</div>
-  <div><input type="text" name="customer_id" id="custid"/></div>
+  <div><input type="text" name="customer_id" id="custid" value="10064"/></div>
   <div>Customer Password</div>  
-  <div><input type="text" name="customer_password" id="contname"/>
+  <div><input type="text" name="customer_password" id="contname" value="10"/>
        <input type="hidden" name="cmd" value="signin" />
        <input type="hidden" name="dir" value="category" />
 	   <input type="hidden" name="page" value="main" />
@@ -49,7 +49,6 @@
 	} else if (contname === ''){
 		alert('Must insert contacts name');
 	} else {
-		alert('Moving..');
 		$('#accessform').attr('action', '${ctx}/customer.do').submit();
 	}
 	

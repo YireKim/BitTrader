@@ -2,7 +2,7 @@ package enums;
 
 public enum CustomerSQL {
 
-	SIGNUP, SIGNIN, LIST, ROW_COUNT, PHONE_NUM, CHK_CUSTID, UPDATE, FILE_UPLOAD, CHANGE_PROFILE, SELECT_PIC;
+	SIGNUP, SIGNIN, LIST, ROW_COUNT, PHONE_NUM, CHK_CUSTID, UPDATE, FILE_UPLOAD, CHANGE_PROFILE, SELECT_PIC, DELETE;
 	
 	@Override
 	public String toString() {
@@ -30,6 +30,7 @@ public enum CustomerSQL {
 			break;
 			
 		case CHK_CUSTID:
+			System.out.println("2");
 			query.append("SELECT * FROM CUSTOMERS WHERE CUSTOMER_ID LIKE ?");
 			break;
 
@@ -55,16 +56,16 @@ public enum CustomerSQL {
 			query.append("UPDATE CUSTOMERS SET PASSWORD = ?, SSN = ?, PHONE = ?, ADDRESS = ?, CITY = ?, COUNTRY = ? WHERE CUSTOMER_ID LIKE ?");
 			break;
 			
-		case FILE_UPLOAD:
-			query.append("");
-			break;
-			
 		case CHANGE_PROFILE:
 			query.append("UPDATE CUSTOMERS SET PHOTO = ? WHERE CUSTOMER_ID LIKE ?");
 			break;
 			
 		case SELECT_PIC:
 			query.append("SELECT * FROM (SELECT * FROM IMAGE WHERE IMAGE_OWNER LIKE ? ORDER BY IMAGE_ID DESC) WHERE ROWNUM = 1");
+			break;
+			
+		case DELETE:
+			query.append("DELETE FROM CUSTOMERS WHERE CUSTOMER_ID LIKE ?");
 			break;
 			
 		default:

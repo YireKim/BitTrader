@@ -1,5 +1,6 @@
 package command;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -37,16 +38,15 @@ public class ExistCommand extends Command {
 			emp.setName(request.getParameter("employee_name"));
 
 			emp = EmployeesServiceImpl.getInstance().retrieveAnEmployee(emp);
-
 			if (emp != null) {
 				System.out.println(" 6 Exist Comm - ACCESS EMP TURE");
 				
 				session.setAttribute("employee", emp);
+				System.out.println("###### SESSION - employee emp / id,name IN! and emp include >"+emp);
 				
 				Proxy paging = new Pagination();
-				paging.carryOut(request);
-				
 				Proxy pagePxy = new PageProxy();
+				paging.carryOut(request);
 				pagePxy.carryOut(paging);
 				
 				List<CustomersDTO> list = CustomersServiceImpl.getInstance().retrieveListOfCustomers(pagePxy);
@@ -54,11 +54,8 @@ public class ExistCommand extends Command {
 				request.setAttribute("list", list);
 				request.setAttribute("pagination", paging);
 				
-				
-
 				System.out.println(" List size : "+list.size());
 			} else {
-				System.out.println("6 Exist Comm - ACCESS EMP FALSE");
 				super.setDomain("employee");
 				super.setPage("access");
 				super.execute();
@@ -75,14 +72,22 @@ public class ExistCommand extends Command {
 			if (cust != null) {
 				System.out.println("ExistComm - CUST TURE");
 				session.setAttribute("customer", cust);
+				
+				cust = CustomersServiceImpl
+						.getInstance()
+						.retrieveAnCustomer(cust);
+				
+				HashMap<String, Object> map = (HashMap<String, Object>) CustomersServiceImpl
+						.getInstance()
+						.retrieveProfilePic(cust);
+				
+				request.setAttribute("image", map.get("imagekey"));
 			} else {
-				System.out.println("ExistComm - CUST FALSE");
 				super.setDomain("customer");
 				super.setPage("signin");
 				super.execute();
 			}
 			break;
-			
 			
 		default:
 			break;

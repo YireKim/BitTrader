@@ -2,8 +2,10 @@ package proxy;
 
 import javax.servlet.http.HttpServletRequest;
 
+import enums.Action;
 import lombok.Data;
 import service.CustomersServiceImpl;
+import service.ProductsServiceImpl;
 
 @Data
 public class Pagination implements Proxy {
@@ -29,14 +31,15 @@ public class Pagination implements Proxy {
 //		System.out.println("page num : "+pageNum);
 
 		String _pageSize = request.getParameter("page_size");
-		pageSize = (_pageSize == null) ? 5 : Integer.parseInt(_pageSize);		
+		pageSize = (_pageSize == null) ? 10 : Integer.parseInt(_pageSize);		
 //		System.out.println("page size : "+pageSize);
 
-		totalCount = CustomersServiceImpl.getInstance().countEmpCustomer(null);
+		totalCount = ProductsServiceImpl.getInstance().countProduct(null);
+//		totalCount = CustomersServiceImpl.getInstance().countEmpCustomer(null);
 //		System.out.println("total count : "+totalCount);
 		
 		nowPage = pageNum;
-		displayPageNum = 5;
+		displayPageNum = 10;
 		
 //		startRow = ((pageNum - 1) * pageSize) + 1;											//ASC
 //		endRow = (totalCount < pageNum * pageSize) ? totalCount : pageNum * pageSize;		//ASC

@@ -27,7 +27,6 @@ public class CreateCommand extends Command {
 			EmployeesDTO emp = new EmployeesDTO();
 			emp.setName(request.getParameter("employeeName"));
 			emp.setBirthDate(request.getParameter("birthDate"));
-			emp.setPhoto(request.getParameter("photo"));
 			emp.setNoteInfo(request.getParameter("noteInfo"));
 			emp.setManagerId(request.getParameter("managerId"));
 

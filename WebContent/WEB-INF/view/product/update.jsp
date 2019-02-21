@@ -17,7 +17,7 @@
   grid-auto-rows: minmax(100px, auto);
 }
 .profile_pic {
-	grid-column: 4 / 10;
+	grid-column: 5 / 9;
 	grid-row: 1;
 }
 .profile_tag {
@@ -40,7 +40,7 @@
 	<form id="form">
 		<c:choose>
 		<c:when test="${ product.photo == 'default_product.jpg'}">
-			<img src="${imgpath}default_profile.gif">	
+			<img src="${imgpath}default_product.jpg">	
 		</c:when>
 		<c:otherwise>
 			<img src="${imgpath}${image.imgName}.${image.imgExtention}" style="width: 100%">
@@ -53,28 +53,24 @@
 	<div class="profile_tag">
 		<div>ID</div>
 		<div>NAME</div>
+		<div>SUPP ID</div>
+		<div>CAT IP</div>
+		<div>UNIT</div>
+		<div>PRICE</div>
 		<div>PHOTO</div>
-		<div>PASSWORD</div>
-		<div>SSN</div>
-		<div>PHONE</div>
-		<div>ADDRESS</div>
-		<div>CITY</div>
-		<div>COUNTRY</div>
 	</div>
 	<div class="profile_info">
-		<div>${ customer.customerId}</div>
-		<div>${ customer.contactName}</div>
-		<div>${ customer.photo}</div>
-<form id="cust_update_form">
-		<div><input type="text" name="password" placeholder="${ customer.password}"/></div>		
-		<div><input type="text" name="ssn" placeholder="${ customer.ssn}"/></div>
-		<div><input type="text" name="phone" placeholder="${ customer.phone}"/></div>
-		<div><input type="text" name="address" placeholder="${ customer.address}"/></div>
-		<div><input type="text" name="city" placeholder="${ customer.city}"/></div>
-		<div><input type="text" name="country" placeholder="${ customer.country}"/></div>
-		<input type="hidden" name="customer_id" value="${ customer.customerId }"/>
-		<input type="hidden" name="cmd" value="cust_update_page" />
-        <input type="hidden" name="dir" value="customer" />
+<form id="prod_update_form">
+		${ product.productId } <br />
+		${ product.productName } <br />
+		${ product.supplierId } <br />
+		${ product.categoryId } <br />
+		<div><input type="text" name="unit" placeholder="${ product.unit }"/></div>		
+		<div><input type="text" name="price" placeholder="${ product.price }"/></div>
+		${ product.photo } <br />
+		<input type="hidden" name="product_id" value="${ product.productId }"/>
+		<input type="hidden" name="cmd" value="prod_update_page" />
+        <input type="hidden" name="dir" value="product" />
 	    <input type="hidden" name="page" value="detail" />
 </form>
 	</div>
@@ -93,14 +89,14 @@ $('#cancle-btn').click(function() {
 $('#file_upload_btn').attr('style','cursor:pointer').click(function(){
 	$('#form')
 	.attr('method','post')
-	.attr('action','${ctx}/customer.do?cmd=cust_file_upload&page=detail&&customer_id=${customer.customerId}')
+	.attr('action','${ctx}/product.do?cmd=prod_file_upload&page=detail&product_id=${ product.productId}')
 	.attr('enctype','multipart/form-data')
 	.submit();
 });
-$('#confirm-btn').click(function() {
+$('#confirm_btn').click(function() {
 	alert('Update..');
-		$('#cust_update_form')
-		.attr('action', '${ctx}/customer.do')
+		$('#prod_update_form')
+		.attr('action', '${ctx}/product.do')
 		.submit();
 });
 </script>

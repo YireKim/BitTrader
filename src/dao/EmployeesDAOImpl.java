@@ -30,9 +30,8 @@ public class EmployeesDAOImpl implements EmployeesDAO{
 			
 			ps.setString(1, emp.getName());
 			ps.setString(2, emp.getBirthDate());
-			ps.setString(3, emp.getPhoto());
-			ps.setString(4, emp.getNoteInfo());
-			ps.setString(5, emp.getManagerId());
+			ps.setString(3, emp.getNoteInfo());
+			ps.setString(4, emp.getManagerId());
 			ps.executeUpdate();
 			
 		} catch (Exception e) {
@@ -221,6 +220,11 @@ public class EmployeesDAOImpl implements EmployeesDAO{
 		}
 		
 		
+	}
+
+	public EmployeesDTO selectAnEmployeePic(EmployeesDTO emp) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

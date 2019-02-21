@@ -57,6 +57,10 @@ public class EmployeesServiceImpl implements EmployeessService {
 		dao.deleteEmployee(emp);
 	}
 
+	public EmployeesDTO retrieveAnEmployeePic(EmployeesDTO emp) {
+		return dao.selectAnEmployeePic(emp);
+	}
+
 
 
 

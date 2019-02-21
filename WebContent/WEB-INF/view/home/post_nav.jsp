@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <nav class="navbar navbar-default">
   <div class="container-fluid">
@@ -19,12 +20,12 @@
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
     
       <ul class="nav navbar-nav">
-        <li><a href="#">ABOUT</a></li>
-        <li><a href="#">EMPLOYEE</a></li>
-        <li><a href="#">CUSTOMER</a></li>
-        <li><a href="#">ORDER</a></li>
-        <li><a href="#">ETC</a></li>
-        <li><a href="#">ADMIN</a></li>
+        <li><a href="#" id="home_glym"><span class="glyphicon glyphicon-home" aria-hidden="true"></span></a></li>
+        <li><a href="#" id="user_glym"><span class="glyphicon glyphicon-user" aria-hidden="true"></span></a></li>
+        <li><a href="#" id="apple_gylm"><span class="glyphicon glyphicon-apple" aria-hidden="true"></span></a></li>
+        <li><a href="#" id="briefcase_glym"><span class="glyphicon glyphicon-briefcase" aria-hidden="true"></span></a></li>
+        <li><a href="#" id="th_glym"><span class="glyphicon glyphicon-th" aria-hidden="true"></span></a></li>
+        <li><a href="#" id="ok_glym"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span></a></li>
         <li><a href="#"></a></li>
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Dropdown <span class="caret"></span></a>
@@ -40,9 +41,34 @@
         </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        <li><img src="https://cdns.iconmonstr.com/wp-content/assets/preview/2019/96/iconmonstr-cat-3.png" width="45px" height="45px"></li>
+        <li>
+        <!-- ALL WRONG!!! NEED TO EDIT ASAP -->
+        <c:choose>
+  	   		<c:when test="${ customer.customerId != null }">
+  	  			<img id="profile_img" src="${imgpath}${image.imgName}.${image.imgExtention}" width="45px" height="45px">
+  	 	 	</c:when>
+  	 	 	<c:when test="${ employee.employeeId != null }">
+  	 	 		<img id="profile_img" src="${imgpath}${image.imgName}.${image.imgExtention}" width="45px" height="45px">
+  	 	 	</c:when>
+  	 	 	<c:otherwise>
+  	 	 		<img src="${imgpath}default_photo.gif" width="45px" height="45px"> 
+  	 	 	</c:otherwise>
+     	</c:choose>
+     	</li>
         <li class="dropdown navbar-right">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">M_INFO <span class="caret"></span></a>
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+			<c:choose>
+  	   		<c:when test="${ customer.customerId != null }">
+  	  			${ customer.contactName } 
+  	 	 	</c:when>
+  	 	 	<c:when test="${ employee.employeeId != null }">
+  	  			${ employee.employeeId } 
+  	 	 	</c:when>
+  	 	 	<c:otherwise>
+  	 	 		M_INFO
+  	 	 	</c:otherwise>
+     		</c:choose>
+		<span class="caret"></span></a>
           <ul class="dropdown-menu" role="menu">
             <li><a href="#">Mail</a></li>
             <li><a href="#">Another action</a></li>
@@ -64,6 +90,15 @@
 
 <script>
 	$('#navbar-brand-link').click(function() {
-	    location.assign('home.do?cmd=move&page=main');
+	    location.assign('${ctx}/home.do');
+	});
+	$('#profile_img').click(function() {
+	    location.assign('${ctx}/customer.do?cmd=cust_retrieve&page=detail&customer_id=${customer.customerId}');
+	});
+	$('#home_glym').click(function() {
+	    location.assign('${ctx}/home.do');
+	});
+	$('#apple_gylm').click(function() {
+	    location.assign('${ctx}/product.do?cmd=prod_list&page=main');
 	});
 	</script>

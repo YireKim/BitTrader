@@ -18,13 +18,13 @@ public class EmployeesController extends HttpServlet {
 	protected void service(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		System.out.println("=-= [ 1 EMP controller] ");
+		System.out.println("=-= [ 1 Product controller] ");
 		
 		Receiver.init(request, response);  // 1 to 5 << was Receiver area
 			
 		Carrier.forward(request, response);
 		
-		System.out.println(" 1 Emp contr last out WITH \n"
+		System.out.println(" 1 Product  contr last out WITH \n"
 				+ "[ request : "+request+"\n"
 				+ "[ response : "+response);
 	}

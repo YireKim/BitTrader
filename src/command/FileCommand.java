@@ -30,14 +30,15 @@ public class FileCommand extends Command {
 			ImageProxy imgpxy = new ImageProxy();
 			imgpxy.carryOut(request);
 			
-//			request.setAttribute("map", CustomersServiceImpl.getInstance().fileUpload(imgpxy));
-			
 			HashMap<String, Object> map = (HashMap<String, Object>) CustomersServiceImpl
 					.getInstance()
 					.fileUpload(imgpxy);
 			
 			request.setAttribute("customer", map.get("customerkey"));
 			request.setAttribute("image", map.get("imagekey"));
+			break;
+			
+		case PROD_FILE_UPLOAD:
 			break;
 
 		default:

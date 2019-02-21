@@ -67,7 +67,7 @@ public class CustomersDAOImpl implements CustomersDAO {
 					.getConnection()
 					.prepareStatement(CustomerSQL.LIST.toString());
 
-			System.out.println("===== CustomerDAOimpl : IN >> Start "+page.getStartRow()+"   End "+page.getEndRow());
+			System.out.println("===== CCCC : IN >> Start "+page.getStartRow()+"   End "+page.getEndRow());
 			
 			String startRow = String.valueOf(page.getStartRow());
 			String endRow = String.valueOf(page.getEndRow());
@@ -90,7 +90,6 @@ public class CustomersDAOImpl implements CustomersDAO {
 				cust.setSsn(rs.getString("SSN"));
 				cust.setPhone(rs.getString("PHONE"));
 				cust.setPassword(rs.getString("PASSWORD"));
-
 				list.add(cust);
 			}
 
@@ -208,7 +207,7 @@ public class CustomersDAOImpl implements CustomersDAO {
 			ps.setString(5, cust.getCity());
 			ps.setString(6, cust.getCountry());
 			ps.setString(7, cust.getCustomerId());
-			ps.executeQuery();
+			ps.executeUpdate();
 
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -217,9 +216,19 @@ public class CustomersDAOImpl implements CustomersDAO {
 
 	@Override
 	public void deleteCustomer(CustomersDTO cust) {
+		try {
+			PreparedStatement ps = DatabaseFactory
+					.createDatabase(Vendor.ORACLE)
+					.getConnection()
+					.prepareStatement(CustomerSQL.DELETE.toString());
 
+			ps.setString(1, cust.getCustomerId());
+			ps.executeUpdate();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
-	
 	@Override
 	public Map<String, Object> selectProfilePic(CustomersDTO cust) {
 		Map<String, Object> map = new HashMap<String, Object>();

@@ -36,23 +36,30 @@ public class Commander {
 				cmd = new ExistCommand(pxy);
 				break;
 				
-			case LIST:
+			case LIST: case PROD_LIST:
 				System.out.println("  3 Commander C LIST cmd : "+Action.valueOf(request.getParameter("cmd").toUpperCase()));
 				cmd = new ListCommand(pxy);
 				break;
 				
-			case CUST_RETRIEVE:
+			case CUST_RETRIEVE: case PROD_RETRIEVE:
 				cmd = new RetrieveCommand(pxy);
 				break;
 				
-			case CUST_UPDATE_PAGE:
+			case CUST_UPDATE_PAGE: case PROD_UPDATE_PAGE:
 				cmd = new UpdateCommand(pxy);
 				break;
-				
-			case CUST_FILE_UPLOAD:
-				System.out.println("  3 Commander C CUST_FILE_UPLOAD cmd : "+Action.valueOf(request.getParameter("cmd").toUpperCase()));
+			
+			case CUST_FILE_UPLOAD: case PROD_FILE_UPLOAD:
 				cmd = new FileCommand(pxy);
 				break;
+				
+			case CUST_DELETE:
+				cmd = new DeleteCommand(pxy); 
+				break;
+				
+				default:
+					break;
+		
 		}
 		return cmd;
 	}

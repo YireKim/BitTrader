@@ -15,11 +15,10 @@ public enum EmployeeSQL {
 					+ "EMPLOYEE_ID,"
 					+ "EMPLOYEE_NAME,"
 					+ "BIRTHDATE,"
-					+ "PHOTO,"
 					+ "NOTE_INFO,"
 					+ "MANAGER_ID"
 					+ ") "
-					+ "VALUES(EMP_SEQ.NEXTVAL, ?, ?, ?, ?, ?)");
+					+ "VALUES(EMP_SEQ.NEXTVAL, ?, ?, ?, ?)");
 			break;
 			
 		case ACCESS:

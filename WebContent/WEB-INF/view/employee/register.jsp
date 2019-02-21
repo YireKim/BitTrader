@@ -15,14 +15,11 @@
   		
 		<span class="input-group-addon" id="basic-addon2">BDay</span>
   		<input type="text" class="form-control" name="birthDate" id="bday" placeholder="Birth day" aria-describedby="basic-addon2">
-  		
-		<span class="input-group-addon" id="basic-addon3">PHOTO</span>
-  		<input type="text" class="form-control" name="photo" id="photo" placeholder="User id" aria-describedby="basic-addon3">
-  		
-		<span class="input-group-addon" id="basic-addon4">INFO</span>
+
+		<span class="input-group-addon" id="basic-addon3">INFO</span>
   		<input type="text" class="form-control" name="noteInfo" id="note" placeholder="User id" aria-describedby="basic-addon4">
   		
-		<span class="input-group-addon" id="basic-addon5">Manager</span>
+		<span class="input-group-addon" id="basic-addon4">Manager</span>
   		<input type="text" class="form-control" name="managerId" id="mngid" placeholder="User id" aria-describedby="basic-addon5">
   
   		<div class="col-md-6"> 

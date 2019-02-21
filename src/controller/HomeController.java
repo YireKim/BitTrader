@@ -28,13 +28,6 @@ public class HomeController extends HttpServlet {
 				+ "\n=====js: " + session.getAttribute("js")
 				+ "\n=====img: " + session.getAttribute("img")
 				+ "\n=====employee: " + session.getAttribute("employee"));
-
-		
-		if (session.getAttribute("employee") == null) {
-			request.setAttribute("compo", "register");
-		} else {
-			request.setAttribute("compo", "access");
-		}
 		
 		request.getRequestDispatcher("/WEB-INF/view/home/main.jsp").forward(request, response);
 	}

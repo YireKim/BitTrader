@@ -37,9 +37,9 @@
 
 <div class="wrapper">
 	<div class="profile_pic">
-		<c:choose>
+	<c:choose>
 		<c:when test="${ product.photo == 'default_product.jpg'}">
-			<img src="${imgpath}default_photo.gif">	
+			<img src="${imgpath}default_product.jpg">	
 		</c:when>
 		<c:otherwise>
 			<img src="${imgpath}${image.imgName}.${image.imgExtention}" style="width: 100%">
@@ -49,49 +49,47 @@
 	<div class="profile_tag">
 		<div>ID</div>
 		<div>NAME</div>
-		<div>SSN</div>
-		<div>PHONE</div>
-		<div>ADDRESS</div>
-		<div>CITY</div>
-		<div>COUNTRY</div>
+		<div>SUPP ID</div>
+		<div>CAT IP</div>
+		<div>UNIT</div>
+		<div>PRICE</div>
 		<div>PHOTO</div>
 	</div>
 	<div class="profile_info">
-		${ customer.customerId} <br />
-		${ customer.contactName} <br />
-		${ customer.ssn } <br />
-		${ customer.phone } <br />
-		${ customer.address } <br />
-		${ customer.city } <br />
-		${ customer.country } <br />
-		${ customer.photo } <br />
+		${ product.productId} <br />
+		${ product.productName} <br />
+		${ product.supplierId} <br />
+		${ product.categoryId} <br />
+		${ product.unit} EA<br />
+		${ product.price} $<br />
+		${ product.photo} <br />
 		</div>
 		<div class="lavels">
-		<form id="cust_update_form">
-			<span class="label label-warning" id="cust_update_btn">UPDATE</span>
-			<input type="hidden" name="customer_id" value="${ customer.customerId }"/>
-			<input type="hidden" name="cmd" value="cust_retrieve" />
+		<form id="prod_update_form">
+			<span class="label label-warning" id="prod_update_btn">UPDATE</span>
+			<input type="hidden" name="product_id" value="${ product.productId}"/>
+			<input type="hidden" name="cmd" value="prod_retrieve" />
 			<input type="hidden" name="page" value="update" />
 		</form>
-		<form id="cust_delete_form">
-			<span class="label label-danger" id="cust_delete_btn">DELETE</span>
-			<input type="hidden" name="customer_id" value="${ customer.customerId }"/>
-			<input type="hidden" name="cmd" value="cust_delete" />
+		<form id="prod_delete_form">
+			<span class="label label-danger" id="prod_delete_btn">DELETE</span>
+			<input type="hidden" name="product_id" value="${ product.productId}"/>
+			<input type="hidden" name="cmd" value="prod_delete" />
 		</form>
 		</div>
 </div>
 <jsp:include page="../home/tail.jsp" />
 
 <script>
-$('#cust_update_btn').click(function() {
-	$('#cust_update_form')
-	.attr('action', '${ctx}/customer.do')
+$('#prod_update_btn').click(function() {
+	$('#prod_update_form')
+	.attr('action', '${ctx}/product.do')
 	.submit();
 });
 $('#cust_delete_btn').click(function() {
-	alert('Delete customer account..');
-	$('#cust_delete_form')
-	.attr('action', '${ctx}/customer.do')
+	alert('Delete product item..');
+	$('#prod_delete_form')
+	.attr('action', '${ctx}/product.do')
 	.submit();
 });
 </script>
