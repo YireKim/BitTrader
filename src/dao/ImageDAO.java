@@ -3,7 +3,6 @@ package dao;
 import java.util.List;
 
 import domain.ImageDTO;
-import proxy.ImageProxy;
 import proxy.Proxy;
 
 public interface ImageDAO {

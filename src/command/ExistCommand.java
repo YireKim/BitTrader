@@ -24,14 +24,22 @@ public class ExistCommand extends Command {
 		
 		System.out.println("=-= [ 4 Exist Command ]");
 		
+		//Proxy req
 	    RequestProxy requestProxy = (RequestProxy) pxy.get("requestProxy");
 	    HttpServletRequest request = requestProxy.getRequest();
 		
+	    //Session value
 		HttpSession session = request.getSession();
+		
+		//Image Hashmap 
+		HashMap<String, Object> map = (HashMap<String, Object>) null;
+		
+		List<?> list = null;
 		
 		switch (Action.valueOf(request.getParameter("cmd").toUpperCase())) {
 		case ACCESS:
 			System.out.println("=-= 6 Exist Comm : ACCESS IN");
+			//session in/chk
 			EmployeesDTO emp = new EmployeesDTO();
 
 			emp.setEmployeeId(request.getParameter("employee_id"));
@@ -42,17 +50,23 @@ public class ExistCommand extends Command {
 				System.out.println(" 6 Exist Comm - ACCESS EMP TURE");
 				
 				session.setAttribute("employee", emp);
-				System.out.println("###### SESSION - employee emp / id,name IN! and emp include >"+emp);
+				System.out.println("###### SESSION - emp info "+emp);
 				
+				//Customer Pagination
 				Proxy paging = new Pagination();
 				Proxy pagePxy = new PageProxy();
 				paging.carryOut(request);
 				pagePxy.carryOut(paging);
 				
-				List<CustomersDTO> list = CustomersServiceImpl.getInstance().retrieveListOfCustomers(pagePxy);
+				list = CustomersServiceImpl.getInstance().retrieveListOfCustomers(pagePxy);
 
 				request.setAttribute("list", list);
 				request.setAttribute("pagination", paging);
+				
+				//Image load
+				map = (HashMap<String, Object>) EmployeesServiceImpl.getInstance().retrieveAnEmployeePic(emp);
+						
+				request.setAttribute("image", map.get("imagekey"));
 				
 				System.out.println(" List size : "+list.size());
 			} else {
@@ -77,7 +91,7 @@ public class ExistCommand extends Command {
 						.getInstance()
 						.retrieveAnCustomer(cust);
 				
-				HashMap<String, Object> map = (HashMap<String, Object>) CustomersServiceImpl
+				map = (HashMap<String, Object>) CustomersServiceImpl
 						.getInstance()
 						.retrieveProfilePic(cust);
 				

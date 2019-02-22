@@ -3,6 +3,9 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <jsp:include page="../home/head.jsp" />
+<jsp:include page="post_nav.jsp" />
+
+
 
 <style>
 .wrapper > div {
@@ -33,6 +36,7 @@
 	grid-row: 3;
 }
 </style>
+
 
 <div class="wrapper">
 <div class="profile_pic">
@@ -71,7 +75,7 @@
 		<input type="hidden" name="product_id" value="${ product.productId }"/>
 		<input type="hidden" name="cmd" value="prod_update_page" />
         <input type="hidden" name="dir" value="product" />
-	    <input type="hidden" name="page" value="detail" />
+	    <input type="hidden" name="page" value="main" />
 </form>
 	</div>
 	<div class="lavels">
@@ -83,17 +87,17 @@
 <jsp:include page="../home/tail.jsp" />
 
 <script>
-$('#cancle-btn').click(function() {
+$('#cancle-btn').click(() => {
 	alert('cancel..');
 });
-$('#file_upload_btn').attr('style','cursor:pointer').click(function(){
+$('#file_upload_btn').attr('style','cursor:pointer').click(() => {
 	$('#form')
 	.attr('method','post')
 	.attr('action','${ctx}/product.do?cmd=prod_file_upload&page=detail&product_id=${ product.productId}')
 	.attr('enctype','multipart/form-data')
 	.submit();
 });
-$('#confirm_btn').click(function() {
+$('#confirm_btn').click(() => {
 	alert('Update..');
 		$('#prod_update_form')
 		.attr('action', '${ctx}/product.do')

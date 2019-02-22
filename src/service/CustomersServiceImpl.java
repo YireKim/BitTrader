@@ -27,7 +27,7 @@ public class CustomersServiceImpl implements CustomersService {
 	}
 
 	@Override
-	public List<CustomersDTO> retrieveListOfCustomers(Proxy pxy) {
+	public List<?> retrieveListOfCustomers(Proxy pxy) {
 		return dao.selectListOfCustomers(pxy);
 	}
 

@@ -28,15 +28,17 @@
         <li><a href="#" id="ok_glym"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span></a></li>
         <li><a href="#"></a></li>
         <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Dropdown <span class="caret"></span></a>
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+          HOME
+          <span class="caret"></span></a>
           <ul class="dropdown-menu" role="menu">
-            <li><a href="#">Action</a></li>
-            <li><a href="#">Another action</a></li>
-            <li><a href="#">Something else here</a></li>
+            <li><a href="#">List</a></li>
+            <li><a href="#" id="cat_register" >Add A New Category </a></li>
+            <li><a href="#">Search</a></li>
             <li class="divider"></li>
-            <li><a href="#">Separated link</a></li>
+            <li><a href="#">Update item</a></li>
             <li class="divider"></li>
-            <li><a href="#">One more separated link</a></li>
+            <li><a href="#">delete item</a></li>
           </ul>
         </li>
       </ul>
@@ -44,9 +46,6 @@
         <li>
         <!-- ALL WRONG!!! NEED TO EDIT ASAP -->
         <c:choose>
-  	   		<c:when test="${ customer.customerId != null }">
-  	  			<img id="profile_img" src="${imgpath}${image.imgName}.${image.imgExtention}" width="45px" height="45px">
-  	 	 	</c:when>
   	 	 	<c:when test="${ employee.employeeId != null }">
   	 	 		<img id="profile_img" src="${imgpath}${image.imgName}.${image.imgExtention}" width="45px" height="45px">
   	 	 	</c:when>
@@ -58,9 +57,6 @@
         <li class="dropdown navbar-right">
         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
 			<c:choose>
-  	   		<c:when test="${ customer.customerId != null }">
-  	  			${ customer.contactName } 
-  	 	 	</c:when>
   	 	 	<c:when test="${ employee.employeeId != null }">
   	  			${ employee.employeeId } 
   	 	 	</c:when>
@@ -74,7 +70,7 @@
             <li><a href="#">Another action</a></li>
             <li><a href="#">Something else here</a></li>
             <li class="divider"></li>
-            <li><a href="#" style='color:red'>Logout</a></li>
+            <li><a href="#" id="logout" style='color:red'>Logout</a></li>
           </ul>
         </li>
       </ul>
@@ -87,18 +83,25 @@
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
 </nav>
-
+<div class="grid-item" id="content" style="border: 1px solid black">
 <script>
-	$('#navbar-brand-link').click(function() {
+	$('#navbar-brand-link').click(() => {
 	    location.assign('${ctx}/home.do');
 	});
-	$('#profile_img').click(function() {
-	    location.assign('${ctx}/customer.do?cmd=cust_retrieve&page=detail&customer_id=${customer.customerId}');
+	$('#profile_img').click(() => {
+	    location.assign('${ctx}/employee.do?cmd=emp_retrieve&page=detail&customer_id=${ emp.employeeId}');
 	});
-	$('#home_glym').click(function() {
+	$('#home_glym').click(() => {
 	    location.assign('${ctx}/home.do');
 	});
-	$('#apple_gylm').click(function() {
+	$('#apple_gylm').click(() => {
 	    location.assign('${ctx}/product.do?cmd=prod_list&page=main');
 	});
+	$('#briefcase_glym').click(() => {
+	    location.assign('${ctx}/category.do?cmd=cat_list&page=list');
+	});
+	$('#logout').click(() => {
+	    location.assign('${ctx}/employee.do?cmd=logout');
+	});
+	
 	</script>

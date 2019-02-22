@@ -12,7 +12,7 @@ public interface CustomersService {
 	public void addCustomer(CustomersDTO cust);
 	
 	// READ
-	public List<CustomersDTO> retrieveListOfCustomers(Proxy pxy);
+	public List<?> retrieveListOfCustomers(Proxy pxy);
 	public List<CustomersDTO> retrieveSomeOfCustomers(CustomersDTO cust);
 	public CustomersDTO retrieveAnCustomer(CustomersDTO cust);
 	public Map<String, Object> retrieveProfilePic(CustomersDTO cust);

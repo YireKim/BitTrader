@@ -36,12 +36,12 @@ public class Commander {
 				cmd = new ExistCommand(pxy);
 				break;
 				
-			case LIST: case PROD_LIST:
+			case LIST: case PROD_LIST: case CAT_LIST: 
 				System.out.println("  3 Commander C LIST cmd : "+Action.valueOf(request.getParameter("cmd").toUpperCase()));
 				cmd = new ListCommand(pxy);
 				break;
 				
-			case CUST_RETRIEVE: case PROD_RETRIEVE:
+			case CUST_RETRIEVE: case PROD_RETRIEVE: case EMP_RETRIEVE:
 				cmd = new RetrieveCommand(pxy);
 				break;
 				
@@ -53,11 +53,16 @@ public class Commander {
 				cmd = new FileCommand(pxy);
 				break;
 				
-			case CUST_DELETE:
+			case CUST_DELETE: case PROD_DELETE:
 				cmd = new DeleteCommand(pxy); 
 				break;
 				
+			case LOGOUT:
+				cmd = new LogoutCommand(pxy);
+				break;
+				
 				default:
+				    cmd = new Command(pxy);
 					break;
 		
 		}

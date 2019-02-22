@@ -3,7 +3,6 @@ package dao;
 import java.util.List;
 import java.util.Map;
 
-import domain.CustomersDTO;
 import domain.ProductsDTO;
 import proxy.Proxy;
 

@@ -1,11 +1,2 @@
-/proxy/
-/dao/
-/command/
-/enums/
-/controller/
 /service/
-/domain/
-/factory/
-/pool/
-/sql/
-/test/
+/dao/

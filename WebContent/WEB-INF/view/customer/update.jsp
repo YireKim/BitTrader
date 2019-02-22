@@ -3,7 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <jsp:include page="../home/head.jsp" />
-
+<jsp:include page="post_nav.jsp" />
 <style>
 .wrapper > div {
   border: 2px;
@@ -87,17 +87,17 @@
 <jsp:include page="../home/tail.jsp" />
 
 <script>
-$('#cancle-btn').click(function() {
+$('#cancle-btn').click(() => {
 	alert('cancel..');
 });
-$('#file_upload_btn').attr('style','cursor:pointer').click(function(){
+$('#file_upload_btn').attr('style','cursor:pointer').click(() => {
 	$('#form')
 	.attr('method','post')
 	.attr('action','${ctx}/customer.do?cmd=cust_file_upload&page=detail&&customer_id=${customer.customerId}')
 	.attr('enctype','multipart/form-data')
 	.submit();
 });
-$('#confirm-btn').click(function() {
+$('#confirm-btn').click(() => {
 	alert('Update..');
 		$('#cust_update_form')
 		.attr('action', '${ctx}/customer.do')

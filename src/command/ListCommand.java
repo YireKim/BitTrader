@@ -1,17 +1,18 @@
 package command;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
-import domain.CustomersDTO;
-import domain.ProductsDTO;
 import enums.Action;
 import proxy.PageProxy;
 import proxy.Pagination;
 import proxy.Proxy;
 import proxy.RequestProxy;
+import service.CategoriesServiceImpl;
 import service.CustomersServiceImpl;
 import service.ProductsServiceImpl;
 
@@ -25,40 +26,46 @@ public class ListCommand extends Command {
 		RequestProxy requestProxy = (RequestProxy) pxy.get("requestProxy");
 		HttpServletRequest request = requestProxy.getRequest();
 		
-		Proxy pageProxy = new PageProxy();
-		Proxy pagination = new Pagination();
+		//Login session
+		HttpSession session = request.getSession();
+		session.getAttribute("employee");
 		
-		switch (Action.valueOf(request.getParameter("cmd").toUpperCase())) {
+		//Pagination
+		PageProxy pageproxy = new PageProxy();
+		Pagination pagination = new Pagination();
+//		Proxy pageProxy = new PageProxy();		//??
+//		Proxy pagination = new Pagination();		//??
+		
+		pagination.carryOut(request);
+		pageproxy.carryOut(pagination);
+		
+		List<?> list = new ArrayList<>();
+		
+		//Cmd in
+		String flag = request.getParameter("cmd").toUpperCase();
+		switch (Action.valueOf(flag)) {
 		case LIST:
 			System.out.println(" ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ LIST IN ");
 			
-			pagination.carryOut(request);
-			pageProxy.carryOut(pagination);
-			
-			List<CustomersDTO> cust_list = CustomersServiceImpl.getInstance().retrieveListOfCustomers(pageProxy);
-			
-			request.setAttribute("list", cust_list);
-			request.setAttribute("pagination", pagination);
-				
-			System.out.println("!!!!!! Cust LIST comm : list"+cust_list);
+			list = CustomersServiceImpl.getInstance().retrieveListOfCustomers(pageproxy);
 			break;
 			
 		case PROD_LIST:
 			System.out.println(" ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ PROD LIST IN ");
 			
-			pagination.carryOut(request);
-			pageProxy.carryOut(pagination);
-				
-			List<ProductsDTO> prod_list = ProductsServiceImpl.getInstance().retrieveListOfProducts(pageProxy);
-			
-			request.setAttribute("list", prod_list);
-			request.setAttribute("pagination", pagination);
-				
-			System.out.println("!!!!!! Prod LIST comm : list"+prod_list);
+			list = ProductsServiceImpl.getInstance().retrieveListOfProducts(pageproxy);
 			break;
+			
+		case CAT_LIST:
+			
+			list = CategoriesServiceImpl.getInstance().retrieveListOfCategories(pageproxy);
+			break;
+			
 
 		default:
 			break;
 		}
+		request.setAttribute("list", list);
+		request.setAttribute("pagination", pagination);
 	}
 }

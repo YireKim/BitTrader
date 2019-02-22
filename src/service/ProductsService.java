@@ -12,7 +12,7 @@ public interface ProductsService {
 	public void addProduct(ProductsDTO prod);
 
 	// READ
-	public List<ProductsDTO> retrieveListOfProducts(Proxy pxy);
+	public List<?> retrieveListOfProducts(Proxy pxy);
 	public List<ProductsDTO> retrieveSomeOfProducts(ProductsDTO prod);
 	public ProductsDTO retrieveAnProduct(ProductsDTO prod);
 	public Map<String, Object> retrieveProductPic(ProductsDTO prod);

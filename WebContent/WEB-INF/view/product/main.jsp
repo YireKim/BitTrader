@@ -3,7 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <jsp:include page="../home/head.jsp" />
-
+<jsp:include page="post_nav.jsp" />
 <style>
 .wrapper>div {
 	border: 2px;
@@ -60,7 +60,6 @@
 <div class="table">
 	<table>
 		<tr>
-			<th>NO.</th>
 			<th>Product ID</th>
 			<th>Name</th>
 			<th>Supplier ID</th>
@@ -72,15 +71,20 @@
 		</tr>
 		<c:forEach var="prod" items="${list}">
 		<tr>
-			<td>${ prod.no }</td>
 			<td>${ prod.productId }</td>
-			<th><a href="${ctx}/product.do?cmd=prod_retrieve&page=detail&product_id=${ prod.productId }">${ prod.productName }</a></th>
+			<th>${ prod.productName }</th>
 			<th>${ prod.supplierId }</th>
 			<th>${ prod.categoryId }</th>
 			<th>${ prod.unit }</th>
 			<th>${ prod.price }</th>
-			<th id="edit_margin"><span id="edit" class="glyphicon glyphicon-edit" aria-hidden="true"></span></th>
-			<th id="remove_margin"><span id="remove" class="glyphicon glyphicon-floppy-remove" aria-hidden="true"></span></th>
+			<th id="edit_margin">
+				<a href="${ctx}/product.do?cmd=prod_retrieve&page=update&product_id=${ prod.productId }">
+				<span id="edit" class="glyphicon glyphicon-edit" aria-hidden="true"></span></a>
+			</th>
+			<th id="remove_margin">
+				<a href="${ctx}/product.do?cmd=prod_delete&page=main&product_id=${ prod.productId }">
+				<span id="remove" class="glyphicon glyphicon-floppy-remove" aria-hidden="true"></span></a>
+			</th>
 		</tr>
 		</c:forEach>
 	</table>
@@ -122,4 +126,5 @@
 $('.page' ).click(function() {
 	location.assign('${ctx}/product.do?cmd=prod_list&page=main&page_num='+$(this).text());
 });
+
 </script>

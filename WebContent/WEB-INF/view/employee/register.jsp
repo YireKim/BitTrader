@@ -3,10 +3,10 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 	
 <jsp:include page="../home/head.jsp" />
+<jsp:include page="post_nav.jsp" />
 
 <div class="row">
 	<div class="col-md-2"></div>
-
 	<div class="col-md-8 input-group"> 
 <form id="content-wide">
 	<div class="grid-item" id="joinform">
@@ -45,7 +45,7 @@
 <jsp:include page="../home/tail.jsp" />
 
 <script>
-	$('#joinbtn').click(function() {
+	$('#joinbtn').click(() => {
 
 		var empno = $('#empno').val();
 		var empname = $('#empname').val();

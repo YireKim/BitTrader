@@ -3,10 +3,10 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 	
 <jsp:include page="../home/head.jsp" />
+<jsp:include page="post_nav.jsp" />
 
 <div class="row">
-	<div class="col-md-10"> <jsp:include page="../employee/post-navi-bar.jsp" /> </div>
-	<div class="col-md-2"> 	<jsp:include page="../home/memberhv.jsp" /> </div>
+	<div class="col-md-10"></div>
 </div>
 
 <div class="row">
@@ -61,7 +61,7 @@
 <jsp:include page="../home/tail.jsp" />
 
 <script>
-	$('#joinbtn').click(function() {
+	$('#joinbtn').click(() => {
 
 		var custname = $('#contname').val();
 		var custadd = $('#add').val();

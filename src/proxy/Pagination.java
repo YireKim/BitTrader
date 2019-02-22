@@ -4,6 +4,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import enums.Action;
 import lombok.Data;
+import service.CategoriesServiceImpl;
 import service.CustomersServiceImpl;
 import service.ProductsServiceImpl;
 
@@ -28,19 +29,32 @@ public class Pagination implements Proxy {
 		
 		String _pageNum = request.getParameter("page_num");
 		pageNum = (_pageNum == null) ? 1 : Integer.parseInt(_pageNum);
-//		System.out.println("page num : "+pageNum);
 
 		String _pageSize = request.getParameter("page_size");
 		pageSize = (_pageSize == null) ? 10 : Integer.parseInt(_pageSize);		
-//		System.out.println("page size : "+pageSize);
 
-		totalCount = ProductsServiceImpl.getInstance().countProduct(null);
-//		totalCount = CustomersServiceImpl.getInstance().countEmpCustomer(null);
-//		System.out.println("total count : "+totalCount);
+		totalCount = 1;
+		
+		switch (Action.valueOf(request.getParameter("cmd").toUpperCase())) {
+		case ACCESS: case LIST: case CUST_DELETE:
+			totalCount = CustomersServiceImpl.getInstance().countEmpCustomer(null);
+			break;
+
+		case PROD_LIST: case PROD_UPDATE_PAGE: case PROD_DELETE: 
+			totalCount = ProductsServiceImpl.getInstance().countProduct(null);
+			break;
+			
+		case CAT_LIST:
+			totalCount = CategoriesServiceImpl.getInstance().countCategory(null);
+			break;
+			
+		default:
+			break;
+		}
 		
 		nowPage = pageNum;
 		displayPageNum = 10;
-		
+
 //		startRow = ((pageNum - 1) * pageSize) + 1;											//ASC
 //		endRow = (totalCount < pageNum * pageSize) ? totalCount : pageNum * pageSize;		//ASC
 		startRow = (startRow < 0) ? 1 : totalCount - (pageNum * pageSize) + 1;	//DESC and prevent (-n) row start
@@ -51,10 +65,7 @@ public class Pagination implements Proxy {
 //		startPage = (int) (Math.ceil(nowPage / (double)displayPageNum) * displayPageNum) - displayPageNum +1;	//startPage First
 //		endPage = (startPage + displayPageNum) -1;
 		
-//		System.out.println("start Page: "+startPage+"    end Page: "+endPage);
-		
 		int tempEndPage = (int) (Math.ceil(totalCount / (double) displayPageNum));
-//		System.out.println(" Page Count : "+tempEndPage);
 		
 		if (endPage > tempEndPage) {	//prevent end page over limit
 			endPage = tempEndPage;

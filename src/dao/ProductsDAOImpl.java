@@ -14,6 +14,7 @@ import enums.CustomerSQL;
 import enums.ProductsSQL;
 import enums.Vendor;
 import factory.DatabaseFactory;
+import proxy.ImageProxy;
 import proxy.PageProxy;
 import proxy.Pagination;
 import proxy.Proxy;
@@ -178,12 +179,65 @@ public class ProductsDAOImpl implements ProductsDAO{
 
 	@Override
 	public void deleteProduct(ProductsDTO prod) {
-		// TODO Auto-generated method stub
-		
+		try {
+			PreparedStatement ps = DatabaseFactory
+					.createDatabase(Vendor.ORACLE)
+					.getConnection()
+					.prepareStatement(ProductsSQL.DELETE.toString());
+
+			ps.setString(1, prod.getProductId());
+			ps.executeUpdate();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
 
 	public static ProductsDAOImpl getInstance() {
 		return instance;
+	}
+
+	public Map<String, Object> updateProductFile(Proxy pxy) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		ProductsDTO prod = new ProductsDTO();
+		ImageDTO img = new ImageDTO();
+		try {
+			ImageProxy imgpxy = (ImageProxy) pxy;
+			
+			//insert image to DB
+			ImageDAOImpl.getInstance().insertImage(imgpxy.getImg());
+			
+			//pick the last one
+			String imgSeq = ImageDAOImpl.getInstance().recentImageSeq();
+			
+			//change photo value
+			String prodId = imgpxy.getImg().getImgOwner();
+			PreparedStatement ps = DatabaseFactory
+					.createDatabase(Vendor.ORACLE)
+					.getConnection()
+					.prepareStatement(ProductsSQL.CHANGE_PROFILE.toString());
+			
+			ps.setString(1, imgSeq);
+			ps.setString(2, prodId);
+			
+			ps.executeUpdate();
+			
+			prod.setProductId(prodId);
+			prod = selectAnProduct(prod);
+			
+			img.setImgSeq(imgSeq);
+			img = ImageDAOImpl
+					.getInstance()
+					.selectAnImage(imgpxy.getImg());
+			
+			map.put("productkey", prod);
+			map.put("imagekey", img);
+			
+		} catch (SQLException e) {
+			
+			e.printStackTrace();
+		}
+		return map;
 	}
 
 }

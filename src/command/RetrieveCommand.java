@@ -7,11 +7,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import domain.CustomersDTO;
+import domain.EmployeesDTO;
 import domain.ProductsDTO;
 import enums.Action;
 import proxy.Proxy;
 import proxy.RequestProxy;
 import service.CustomersServiceImpl;
+import service.EmployeesServiceImpl;
 import service.ProductsServiceImpl;
 
 public class RetrieveCommand extends Command {
@@ -63,6 +65,22 @@ public class RetrieveCommand extends Command {
 			map = (HashMap<String, Object>) ProductsServiceImpl
 					.getInstance()
 					.retrieveProductPic(prod);
+			
+			request.setAttribute("image", map.get("imagekey"));
+			
+			break;
+			
+		case EMP_RETRIEVE:
+			EmployeesDTO emp = new EmployeesDTO();
+			
+			emp.setEmployeeId(request.getParameter("employee_id"));
+			emp = EmployeesServiceImpl.getInstance().retrieveAnEmployee(emp);
+			
+			request.setAttribute("employee", emp);
+			
+			map = (HashMap<String, Object>) EmployeesServiceImpl
+					.getInstance()
+					.retrieveAnEmployeePic(emp);
 			
 			request.setAttribute("image", map.get("imagekey"));
 			

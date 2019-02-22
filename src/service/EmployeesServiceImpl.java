@@ -1,6 +1,7 @@
 package service;
 
 import java.util.List;
+import java.util.Map;
 
 import dao.EmployeesDAOImpl;
 import domain.EmployeesDTO;
@@ -57,7 +58,7 @@ public class EmployeesServiceImpl implements EmployeessService {
 		dao.deleteEmployee(emp);
 	}
 
-	public EmployeesDTO retrieveAnEmployeePic(EmployeesDTO emp) {
+	public Map<String, Object> retrieveAnEmployeePic(EmployeesDTO emp) {
 		return dao.selectAnEmployeePic(emp);
 	}
 

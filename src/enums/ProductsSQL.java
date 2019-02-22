@@ -2,7 +2,7 @@ package enums;
 
 public enum ProductsSQL {
 
-	ROW_COUNT, LIST, CHK_PRODID, UPDATE;
+	ROW_COUNT, LIST, CHK_PRODID, UPDATE, DELETE, CHANGE_PROFILE;
 	
 	@Override
 	public String toString() {
@@ -29,6 +29,14 @@ public enum ProductsSQL {
 					"		(SELECT ROWNUM AS NO, P.* FROM PRODUCTS P ORDER BY NO DESC) R \n" + 
 					"WHERE R.NO <= ?) T\n" + 
 					"WHERE T.NO >= ?");
+			break;
+			
+		case DELETE:
+			query.append("DELETE FROM PRODUCTS WHERE SEQ_PRODUCT_ID LIKE ?");
+			break;
+			
+		case CHANGE_PROFILE:
+			query.append("UPDATE PRODUCTS SET PHOTO = ? WHERE SEQ_PRODUCT_ID LIKE ?");
 			break;
 			
 		default:

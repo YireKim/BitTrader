@@ -3,6 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <jsp:include page="../home/head.jsp" />
+<jsp:include page="post_nav.jsp" />
 <style>
 .wrapper > div {
   border: 2px;
@@ -83,12 +84,12 @@
 <jsp:include page="../home/tail.jsp" />
 
 <script>
-$('#cust_update_btn').click(function() {
+$('#cust_update_btn').click(() => {
 	$('#cust_update_form')
 	.attr('action', '${ctx}/customer.do')
 	.submit();
 });
-$('#cust_delete_btn').click(function() {
+$('#cust_delete_btn').click(() => {
 	alert('Delete customer account..');
 	$('#cust_delete_form')
 	.attr('action', '${ctx}/customer.do')

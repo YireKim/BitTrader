@@ -16,5 +16,4 @@
 </head>
 <body>
  
-	 <jsp:include page="post_nav.jsp" />
  

@@ -3,6 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <jsp:include page="head.jsp" />
+<jsp:include page="post_nav.jsp" />
 
 <style>
 button::-moz-focus-inner,
@@ -70,22 +71,19 @@ input::-moz-focus-inner {
     <div class="col-md-4"></div>  
 </div>
 	
-	
-	
-	
 <jsp:include page="tail.jsp"/>
 
-	<script>
-	$('#cust_register').click(function(){
+	<script>	
+	$('#cust_register').click(() => {
 	    location.assign('customer.do?cmd=move&page=register');
 	});
-	$('#cust_access').click(function(){
+	$('#cust_access').click(() => {
 	    location.assign('customer.do?cmd=move&page=access');
 	});
-	$('#emp_register').click(function(){
+	$('#emp_register').click(() => {
 	    location.assign('employee.do?cmd=move&page=register');
 	});
-	$('#emp_access').click(function(){
+	$('#emp_access').click(() => {
 	    location.assign('employee.do?cmd=move&page=access');
 	});
 	</script>

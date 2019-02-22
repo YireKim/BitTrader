@@ -23,6 +23,7 @@ public class CustomersDAOImpl implements CustomersDAO {
 
 	private static CustomersDAOImpl instance = new CustomersDAOImpl();
 	Connection conn;
+	
 	private CustomersDAOImpl() {
 		conn = DatabaseFactory
 				.createDatabase(Vendor.ORACLE)

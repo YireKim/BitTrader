@@ -22,7 +22,7 @@ public class ProductsServiceImpl implements ProductsService{
 	}
 
 	@Override
-	public List<ProductsDTO> retrieveListOfProducts(Proxy pxy) {
+	public List<?> retrieveListOfProducts(Proxy pxy) {
 		return dao.selectListOfProducts(pxy);
 	}
 
@@ -65,6 +65,9 @@ public class ProductsServiceImpl implements ProductsService{
 
 	public static ProductsServiceImpl getInstance() {
 		return instance;
+	}
+	public Map<String, Object> fileUpload(Proxy pxy) {
+		return dao.updateProductFile(pxy);
 	}
 
 }

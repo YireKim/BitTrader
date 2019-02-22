@@ -1,5 +1,6 @@
 package command;
 
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -7,6 +8,8 @@ import javax.servlet.http.HttpServletRequest;
 import domain.CustomersDTO;
 import domain.ProductsDTO;
 import enums.Action;
+import proxy.PageProxy;
+import proxy.Pagination;
 import proxy.Proxy;
 import proxy.RequestProxy;
 import service.CustomersServiceImpl;
@@ -19,6 +22,8 @@ public class UpdateCommand extends Command{
 
 		RequestProxy requestProxy = (RequestProxy) pxy.get("requestProxy");
 		HttpServletRequest request = requestProxy.getRequest();
+		
+		List<?> list = null;
 		
 		switch (Action.valueOf(request.getParameter("cmd").toUpperCase())) {
 		case CUST_UPDATE_PAGE:
@@ -67,6 +72,17 @@ public class UpdateCommand extends Command{
 			ProductsServiceImpl.getInstance().modifyProduct(prod);
 			
 			request.setAttribute("product", prod);
+			
+			//page again..
+			Proxy paging = new Pagination();
+			Proxy pagePxy = new PageProxy();
+			paging.carryOut(request);
+			pagePxy.carryOut(paging);
+			
+			list = ProductsServiceImpl.getInstance().retrieveListOfProducts(pagePxy);
+
+			request.setAttribute("list", list);
+			request.setAttribute("pagination", paging);
 			break;
 			
 		default:

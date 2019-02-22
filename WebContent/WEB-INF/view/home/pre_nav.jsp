@@ -63,7 +63,7 @@
 </nav>
 
 <script>
-	$('#navbar-brand-link').click(function() {
+	$('#navbar-brand-link').click(() => {
 	    location.assign('home.do?cmd=move&page=main');
 	});
 	</script>
